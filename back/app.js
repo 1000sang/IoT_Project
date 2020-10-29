@@ -13,17 +13,6 @@ const errMsg = require('./utils/error/errorMessage');
 // const mqtt = require('mqtt');
 // const client = mqtt.connect('mqtt://test.mosquitto.org');
 
-const app = express();
-
-app.use(cors({
-    origin: true,
-    credentials: false,
-}))
-app.use(bodyParser.json())
-app.use(express.urlencoded({ extended: true }))
-
-dotenv.config()
-
 // setInterval(
 //     () => {
 //         client.publish('test', 'hello');
@@ -34,6 +23,17 @@ dotenv.config()
 // client.on('message', function (topic, message) {
 //     console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
 // })
+
+const app = express();
+
+app.use(cors({
+    origin: true,
+    credentials: false,
+}))
+app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }))
+
+dotenv.config()
 
 db.sequelize.sync()
     .then(() => {
