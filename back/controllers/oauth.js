@@ -7,6 +7,7 @@ const Errors = (exports.Errors = {
     FailureSignIn: createError('FailureSignIn'),
     UnknownError: createError('UnkownError')
 })
+
 exports.createToken = async (req, res, next) => {
     try {
         const data = {

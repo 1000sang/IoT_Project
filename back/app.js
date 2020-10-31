@@ -11,18 +11,13 @@ const errMsg = require('./utils/error/errorMessage');
 
 dotenv.config()
 
-// const mqtt = require('mqtt');
-// const mqttOptions = {
-//     host: process.env.MQTT_HOST,
-//     port: process.env.MQTT_PORT,
-//     protocol: 'mqtt'
-// }
-// const client = mqtt.connect(mqttOptions);
-
-// client.subscribe('test');
-// client.on('message', function (topic, message) {
-//     console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
-// })
+const mqtt = require('mqtt');
+const mqttOptions = {
+    host: process.env.MQTT_HOST,
+    port: process.env.MQTT_PORT,
+    protocol: 'mqtt'
+}
+const client = mqtt.connect(mqttOptions);
 
 const app = express();
 
@@ -47,12 +42,17 @@ if (process.env.NODE_ENV === 'production') {
     app.use(morgan('dev'));
 }
 
-// client.on('connect', () => {
-//     console.log('connected : ' + client.connected)
-// })
-// client.on('error', (err) => {
-//     console.log(err)
-// })
+client.on('connect', () => {
+    console.log('connected : ' + client.connected)
+})
+client.on('error', (err) => {
+    console.log(err)
+})
+
+client.subscribe('DHT11');
+client.on('message', function (topic, message) {
+    console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
+})
 
 // setInterval(
 //     () => {

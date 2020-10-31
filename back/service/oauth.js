@@ -1,6 +1,4 @@
-const jwt = require('jsonwebtoken');
-
-
+const { createToken } = require('../utils/token');
 const { createError } = require('../utils/error/error');
 
 const Errors = (exports.Errors = {
@@ -10,13 +8,7 @@ const Errors = (exports.Errors = {
 
 exports.createToken = async (data) => {
     try {
-        const token = jwt.sign(
-            {
-                ...data
-            },
-            process.env.JWT_SECRET
-        );
-        return token
+        return createToken(data);
     } catch (err) {
         throw new Errors.FailureSignIn()
     }

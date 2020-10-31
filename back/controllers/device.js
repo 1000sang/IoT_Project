@@ -1,5 +1,4 @@
-// const bcrypt = require('bcryptjs');
-// const userService = require('../service/user');
+const { verifyToken } = require('../utils/token')
 
 exports.getDevice = async (req, res, next) => {
     const id = req.params.id
@@ -7,18 +6,9 @@ exports.getDevice = async (req, res, next) => {
     return res.send(id)
 }
 
-// exports.createUser = async (req, res, next) => {
-//     try {
-//         const findOneUser = await userService.findOneUserByEmail(req.body.email)
-
-//         const hashedPassword = await bcrypt.hash(req.body.password, 12);
-//         req.body.password = hashedPassword;
-
-//         const createUser = await userService.createUser(req.body);
-//         res.status(200).send(createUser);
-//     } catch (err) {
-//         next(err)
-//     }
-// }
-
+exports.createDevice = async (req, res, next) => {
+    const token = req.headers.authorization;
+    const decoded = verifyToken(token);
+    return res.send(token)
+}
 
