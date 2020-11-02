@@ -1,18 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-    const Device = sequelize.define('Device', {
+    const Site = sequelize.define('Site', {
         siteCode: {
             type: DataTypes.STRING(30),
             aloowNull: false,
             unique: true
         },
-        topic: {
+        siteName: {
             type: DataTypes.STRING(30),
             aloowNull: false
-        }
+        },
     }, {
         charset: 'utf8',
         callate: 'utf8_general_ci',
     });
-    Device.associate = (db) => { };
-    return Device;
+    Site.associate = (db) => { };
+    return Site;
 }

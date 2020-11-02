@@ -3,6 +3,7 @@ const router = express.Router();
 
 router.use('/user', require('./user'));
 router.use('/oauth', require('./oauth'));
+router.use('/site', require('./site'));
 router.use('/device', require('./device'));
 
 module.exports = router;
