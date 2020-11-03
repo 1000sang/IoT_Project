@@ -54,9 +54,9 @@ exports.createSite = async (payload) => {
     } catch (err) {
         switch (err.name) {
             case 'ValidationError':
-                throw new Errors.BadSiteDataError(err.message)
+                throw new Errors.BadSiteDataError()
             default:
-                throw new Errors.UnknownError(err.message)
+                throw new Errors.UnknownError()
         }
     }
 }

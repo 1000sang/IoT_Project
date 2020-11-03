@@ -58,9 +58,9 @@ exports.createUser = async (body) => {
     } catch (err) {
         switch (err.name) {
             case 'ValidationError':
-                throw new Errors.BadUserDataError(err.message)
+                throw new Errors.BadUserDataError()
             default:
-                throw new Errors.UnknownError(err.message)
+                throw new Errors.UnknownError()
         }
     }
 }

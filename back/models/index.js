@@ -8,7 +8,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 db.User = require('./user')(sequelize, Sequelize);
 db.Site = require('./site')(sequelize, Sequelize);
 db.Device = require('./device')(sequelize, Sequelize);
-// db.UserDevice = require('./userDevice')(sequelize, Sequelize);
+db.UserDevice = require('./userDevice')(sequelize, Sequelize);
 
 
 Object.keys(db).forEach(modelName => {

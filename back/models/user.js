@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         callate: 'utf8_general_ci',
     });
     User.associate = (db) => {
-        // db.User.belongsToMany(db.Device, { through: 'UserDevice', foreignKey: 'userId' });
+        db.User.belongsToMany(db.Device, { through: 'UserDevice', foreignKey: 'userId' });
     };
     return User;
 }
