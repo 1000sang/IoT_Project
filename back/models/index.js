@@ -6,14 +6,10 @@ const db = {};
 const sequelize = new Sequelize(config.database, config.username, config.password, config)
 
 db.User = require('./user')(sequelize, Sequelize);
-db.Device = require('./device')(sequelize, Sequelize);
 db.Site = require('./site')(sequelize, Sequelize);
+db.Device = require('./device')(sequelize, Sequelize);
+// db.UserDevice = require('./userDevice')(sequelize, Sequelize);
 
-db.User.belongsToMany(db.Device, { through: 'UserDevice' });
-db.Device.belongsToMany(db.User, { through: 'UserDevice' });
-
-db.Site.hasMany(db.Device, { foreignKey: 'siteCode', sourceKey: 'id' });
-db.Device.belongsTo(db.Site, { foreignKey: 'siteCode', sourceKey: 'id' });
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

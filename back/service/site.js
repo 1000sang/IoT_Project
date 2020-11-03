@@ -5,6 +5,7 @@ const Errors = (exports.Errors = {
     BadSiteDataError: createError('BadSiteDataError'),
     DuplicateSiteError: createError('DuplicateSiteError'),
     FailureCreateSite: createError('FailureCreateSite'),
+    SiteCodeNotFound: createError('SiteCodeNotFound'),
     UnknownError: createError('UnkownError')
 })
 
@@ -18,6 +19,18 @@ exports.findOneSite = async (siteCode) => {
         throw new Errors.DuplicateSiteError()
     }
     return exSite;
+}
+
+exports.findOneBySiteCode = async (siteCode) => {
+    const findOneBySiteCode = await Site.findOne({
+        where: {
+            siteCode: siteCode
+        }
+    })
+    if (!findOneBySiteCode) {
+        throw new Errors.SiteCodeNotFound()
+    }
+    return findOneBySiteCode
 }
 
 // exports.findUser = async ({ email }) => {

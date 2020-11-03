@@ -22,7 +22,12 @@ exports.createToken = async (req, res, next) => {
             throw new Errors.FailureSignIn()
         }
 
-        const token = await oauthService.createToken(data);
+        const tokenData = {
+            email: findOneUser.dataValues.email,
+            nickname: findOneUser.dataValues.nickname
+        }
+
+        const token = await oauthService.createToken(tokenData);
         return res.send(token)
     } catch (err) {
         next(err);

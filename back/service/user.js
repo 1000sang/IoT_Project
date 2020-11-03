@@ -4,6 +4,7 @@ const { createError } = require('../utils/error/error');
 const Errors = (exports.Errors = {
     BadUserDataError: createError('BadUserDataError'),
     DuplicateUserEmailError: createError('DuplicateUserEmailError'),
+    UserEmailNotFound: createError('UserEmailNotFound'),
     FailureSignIn: createError('FailureSignIn'),
     UnknownError: createError('UnkownError')
 })
@@ -22,6 +23,17 @@ exports.findOneUserByEmail = async (email) => {
         throw new Errors.DuplicateUserEmailError()
     }
     return exUser;
+}
+exports.findOneIdByEmail = async (email) => {
+    const findOneIdByEmail = await User.findOne({
+        where: {
+            email: email
+        }
+    })
+    if (!findOneIdByEmail) {
+        throw new Errors.UserEmailNotFound()
+    }
+    return findOneIdByEmail
 }
 
 exports.findUser = async ({ email }) => {

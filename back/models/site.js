@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         charset: 'utf8',
         callate: 'utf8_general_ci',
     });
-    Site.associate = (db) => { };
+    Site.associate = (db) => {
+
+    };
     return Site;
 }
