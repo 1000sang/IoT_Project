@@ -11,21 +11,30 @@ const Errors = (exports.Errors = {
 })
 
 exports.findAllDeviceById = async (userId) => {
+    let deviceData = {};
+
     const result = await UserDevice.findAll({
         where: { userId: userId },
         attributes: ['deviceId']
     })
-        .then((rows) => {
-            return rows.map((r) => {
-                return r.deviceId
-            })
-        })
+    // .then((rows) => {
+    //     let data = {}
+    //     return rows.map((r, v) => {
+    //         // console.log(data)
+    //         data[v] = r.deviceId;
+    //         return data
+    //     })
+    // })
 
     if (!result) {
         throw new Errors.DeviceIdNotFound()
     }
 
-    return result;
+    result.map((r, v) => {
+        deviceData[v] = r.dataValues.deviceId
+    })
+
+    return deviceData;
 }
 
 exports.getAllDevice = async (payload) => {
