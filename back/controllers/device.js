@@ -3,6 +3,27 @@ const siteService = require('../service/site');
 const userService = require('../service/user');
 const { verifyToken } = require('../utils/token');
 
+exports.getAllHasUser = async (req, res, next) => {
+    try {
+        const tokenData = verifyToken(req.headers.authorization);
+
+        const payload = {
+            email: tokenData.email,
+            nickname: tokenData.nickname
+        }
+
+        const findeOneIdByEmail = await userService.findOneIdByEmail(payload.email);
+
+        payload.userId = findeOneIdByEmail.userId;
+
+        const getAllDevice = await deviceService.getAllDevice(payload);
+
+        res.status(200).send(getAllDevice);
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 exports.createDevice = async (req, res, next) => {
     try {
         const tokenData = verifyToken(req.headers.authorization);

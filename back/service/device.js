@@ -1,4 +1,5 @@
 const { Device, User, UserDevice } = require('../models');
+const device = require('../models/device');
 const { createError } = require('../utils/error/error');
 
 const Errors = (exports.Errors = {
@@ -8,6 +9,38 @@ const Errors = (exports.Errors = {
     DeviceIdNotFound: createError('DeviceIdNotFound'),
     UnknownError: createError('UnkownError')
 })
+
+exports.findAllDeviceById = async (userId) => {
+    const result = await UserDevice.findAll({
+        where: { userId: userId },
+        attributes: ['deviceId']
+    })
+        .then((rows) => {
+            return rows.map((r) => {
+                return r.deviceId
+            })
+        })
+
+    if (!result) {
+        throw new Errors.DeviceIdNotFound()
+    }
+
+    return result;
+}
+
+exports.getAllDevice = async (payload) => {
+    try {
+        const findAll = await this.findAllDeviceById(payload.userId);
+
+        // findAll.map((v) => {
+        //     console.log(v)
+        // })
+
+        return findAll;
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 exports.createDevice = async (payload) => {
     try {
