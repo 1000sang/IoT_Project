@@ -36,6 +36,7 @@ exports.createToken = async (req, res, next) => {
         const findAllDeviceById = await deviceService.findAllDeviceById(data.userId);
 
         const tokenData = {
+            userId: data.userId,
             email: findOneUser.dataValues.email,
             nickname: findOneUser.dataValues.nickname,
             deviceId: findAllDeviceById

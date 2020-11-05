@@ -8,7 +8,11 @@ import actions from './actions';
 import axios from '../pages/api/axios';
 
 function loginAPI(payload) {
-  return axios.post('/oauth', payload);
+  return axios.post('/user/login', payload);
+}
+
+function logoutAPI() {
+  return axios.post('/user/logout');
 }
 
 function* loginRequest({ payload }) {
@@ -42,6 +46,7 @@ export function* jwtLoginRequest() {
 
 function* logoutRequest() {
   try {
+    yield call(logoutAPI);
     yield call(logout);
     yield put(actions.logoutRequestSuccess());
   } catch (error) {

@@ -13,10 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         charset: 'utf8',
         callate: 'utf8_general_ci',
+        timestamps: false
     });
     UserDevice.associate = (db) => {
-        db.UserDevice.belongsTo(db.User, { foreignKey: 'userId' });
-        db.UserDevice.belongsTo(db.Device, { foreignKey: 'deviceId' });
+        // db.UserDevice.belongsTo(db.User, { foreignKey: 'userId' });
+        // db.UserDevice.belongsTo(db.Device, { foreignKey: 'deviceId' });
     };
     return UserDevice;
 }

@@ -27,7 +27,7 @@ export default function SignUp() {
 
   useEffect(() => {
     if (isSignedUp) {
-      router.push('/');
+      router.replace('/');
     }
   }, [isSignedUp])
 

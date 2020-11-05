@@ -1,4 +1,5 @@
-const { User } = require('../models');
+const { Strategy } = require('passport');
+const { User, Device, UserDevice } = require('../models');
 const { createError } = require('../utils/error/error');
 
 const Errors = (exports.Errors = {
@@ -9,8 +10,32 @@ const Errors = (exports.Errors = {
     UnknownError: createError('UnkownError')
 })
 
-exports.getUser = (req, res, next) => {
-    return 'a'
+exports.getUser = async (userId) => {
+    try {
+        const user = await User.findOne({
+            where: { userId: userId }
+        });
+
+        return user
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+exports.findOneUser = async (userId) => {
+    const user = await User.findOne({
+        where: { userId: userId },
+        attributes: {
+            exclude: ['password']
+        },
+        include: [{
+            model: Device,
+            attributes: ['deviceId', 'topic']
+        }]
+    });
+
+    return user
+    // JSON.stringify(user)
 }
 
 exports.findOneUserByEmail = async (email) => {

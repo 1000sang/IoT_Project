@@ -1,10 +1,17 @@
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
+
+const { verifyToken } = require('../utils/token');
 const userService = require('../service/user');
 
 exports.getUser = async (req, res, next) => {
-    const getUser = await userService.getUser();
-    console.log(getUser)
-    return res.send(getUser)
+    if (req.user) {
+        const user = await userService.getUser(req.user.userId);
+    } else {
+        return res.status(200).json(null);
+    }
+
+    return res.status(200).json(user);
 }
 
 exports.createUser = async (req, res, next) => {
@@ -21,4 +28,35 @@ exports.createUser = async (req, res, next) => {
     }
 }
 
+exports.login = async (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            console.log(err);
+            return next(err);
+        }
+        if (info) {
+            return res.status(401).send(info.reason);
+        }
+        return req.login(user, async (loginErr) => {
+            if (loginErr) {
+                console.log(loginErr);
+                return next(loginErr);
+            }
 
+            const findOneUser = await userService.findOneUser(user.userId);
+
+            return res.status(200).send(findOneUser)
+        })
+    })(req, res, next);
+}
+
+exports.logout = async (req, res, next) => {
+    try {
+        req.logout();
+        req.session.destroy();
+        res.send('ok');
+    } catch (err) {
+        console.log(err)
+        next(err)
+    }
+}
