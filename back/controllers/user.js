@@ -6,6 +6,7 @@ const userService = require('../service/user');
 
 exports.getUser = async (req, res, next) => {
     if (req.user) {
+        console.log(req.headers);
         const user = await userService.getUser(req.user.userId);
     } else {
         return res.status(200).json(null);
