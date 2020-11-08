@@ -6,12 +6,12 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const hpp = require('hpp');
+const passport = require('passport');
 const helmet = require('helmet');
+
 const routers = require('./routes');
 const db = require('./models');
-const passport = require('passport');
-
-const passportConfig = require('./passport');
+const passportConfig = require('./utils/passport');
 const errMsg = require('./utils/error/errorMessage');
 
 dotenv.config()

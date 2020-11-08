@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { isLoggedIn, isNotLoggedIn } = require('../passport/confirmLogin');
+const { isLoggedIn, isNotLoggedIn } = require('../utils/passport/confirmLogin');
 const oauthController = require('../controllers/oauth');
 
 router.get('/', isLoggedIn, oauthController.getTokenData);

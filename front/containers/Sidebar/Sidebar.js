@@ -121,7 +121,7 @@ export default function Sidebar(props) {
               />
             ))}
 
-            <SubMenu
+            {/* <SubMenu
               key="sub1"
               title={
                 <span className="isoMenuHolder" style={submenuColor}>
@@ -154,7 +154,7 @@ export default function Sidebar(props) {
                   <IntlMessages id="sidebar.option4" />
                 </Menu.Item>
               </MenuItemGroup>
-            </SubMenu>
+            </SubMenu> */}
           </Menu>
         </Scrollbars>
       </Sider>
