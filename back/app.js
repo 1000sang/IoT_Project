@@ -1,13 +1,17 @@
 const express = require('express');
 const cors = require('cors');
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const hpp = require('hpp');
-const passport = require('passport');
 const helmet = require('helmet');
+
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const redis = require('redis');
+const redisClient = require('./utils/redis');
+const RedisStore = require('connect-redis')(session);
 
 const routers = require('./routes');
 const db = require('./models');
@@ -23,10 +27,9 @@ const mqttOptions = {
     protocol: 'mqtt'
 }
 const client = mqtt.connect(mqttOptions);
+let redisHost = '';
 
 const app = express();
-
-passportConfig();
 
 app.use(cors({
     origin: true,
@@ -34,9 +37,26 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
+
+passportConfig();
+
 app.use(cookieParser(process.env.PASSPORT_SECRET));
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(morgan('combined'));
+    app.use(hpp());
+    app.use(helmet());
+    redisHost = process.env.REDIS_HOST
+} else {
+    app.use(morgan('dev'));
+    redisHost = 'localhost';
+}
+
 app.use(session({
-    saveUninitialized: false,
+    store: new RedisStore({
+        client: redisClient
+    }),
+    saveUninitialized: true,
     resave: false,
     secret: process.env.PASSPORT_SECRET
 }));
@@ -49,14 +69,6 @@ db.sequelize.sync()
     })
     .catch(console.error);
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(morgan('combined'));
-    app.use(hpp());
-    app.use(helmet());
-} else {
-    app.use(morgan('dev'));
-}
-
 client.on('connect', () => {
     console.log('connected : ' + client.connected)
 })
@@ -68,12 +80,6 @@ client.subscribe('DHT11');
 client.on('message', function (topic, message) {
     console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
 })
-
-// setInterval(
-//     () => {
-//         client.publish('test', 'a');
-//     }, 5000
-// );
 
 app.use('/', routers);
 app.use(function (err, req, res, next) {
