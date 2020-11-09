@@ -10,8 +10,10 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const redis = require('redis');
+const connectRedis = require('connect-redis');
+const RedisStore = connectRedis(session);
 const redisClient = require('./utils/redis');
-const RedisStore = require('connect-redis')(session);
+// const RedisStore = require('connect-redis')(session);
 
 const routers = require('./routes');
 const db = require('./models');
@@ -27,7 +29,6 @@ const mqttOptions = {
     protocol: 'mqtt'
 }
 const client = mqtt.connect(mqttOptions);
-let redisHost = '';
 
 const app = express();
 
@@ -46,15 +47,14 @@ if (process.env.NODE_ENV === 'production') {
     app.use(morgan('combined'));
     app.use(hpp());
     app.use(helmet());
-    redisHost = process.env.REDIS_HOST
 } else {
     app.use(morgan('dev'));
-    redisHost = 'localhost';
 }
 
 app.use(session({
     store: new RedisStore({
-        client: redisClient
+        client: redisClient,
+        logErrors: true
     }),
     saveUninitialized: true,
     resave: false,
