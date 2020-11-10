@@ -10,6 +10,7 @@ module.exports = () => {
     passport.deserializeUser(async (id, done) => {
         try {
             const user = await User.findOne({ where: { userId: id } });
+            console.log('deserializeUser', user);
             done(null, user);
         } catch (err) {
             console.log(err);

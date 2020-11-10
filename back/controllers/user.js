@@ -18,6 +18,7 @@ exports.getUser = async (req, res, next) => {
 exports.getSesssion = async (req, res, next) => {
     try {
         const session = req.session.key;
+        console.log(session);
         return res.status(200).json(session)
     } catch (err) {
         console.log('getSession', err);
@@ -63,14 +64,19 @@ exports.login = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
     try {
-        console.log('logout', req);
-        req.logout();
+        console.log('logout', req.session);
+        req.logout(() => {
+            console.log('logout process');
+            req.session.destroy();
+            console.log('logout destroy');
+            res.send('ok')
+        });
 
         // req.session.destroy();
         // res.send('ok');
-        req.session.save(() => {
-            res.send('ok')
-        })
+        // req.session.save(() => {
+        //     res.send('ok')
+        // })
     } catch (err) {
         console.log(err)
         // next(err)
