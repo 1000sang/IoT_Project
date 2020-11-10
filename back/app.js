@@ -11,7 +11,6 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 let RedisStore = require('connect-redis')(session);
 let redisClient = require('./utils/redis');
-// const RedisStore = require('connect-redis')(session);
 
 const routers = require('./routes');
 const db = require('./models');
@@ -31,15 +30,13 @@ const client = mqtt.connect(mqttOptions);
 const app = express();
 
 app.use(cors({
-    origin: ['http://devfloors.com', 'http://localhost:3003'],
+    origin: true,
     credentials: true,
 }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 passportConfig();
-
-app.use(cookieParser(process.env.PASSPORT_SECRET));
 
 if (process.env.NODE_ENV === 'production') {
     app.use(morgan('combined'));
@@ -49,8 +46,9 @@ if (process.env.NODE_ENV === 'production') {
     app.use(morgan('dev'));
 }
 
+app.use(cookieParser(process.env.PASSPORT_SECRET, { sameSite: "none" }));
 app.use(session({
-    saveUninitialized: true,
+    saveUninitialized: false,
     resave: false,
     secret: process.env.PASSPORT_SECRET,
     store: new RedisStore({
