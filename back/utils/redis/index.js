@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
+// process.env.REDIS_PORT, process.env.REDIS_HOST
+const redisClient = redis.createClient();
 
 redisClient.on('error', function (err) {
     console.log('Redis error: ' + err);

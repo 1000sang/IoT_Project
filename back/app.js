@@ -52,13 +52,13 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(session({
+    saveUninitialized: false,
+    resave: false,
+    secret: process.env.PASSPORT_SECRET,
     store: new RedisStore({
         client: redisClient,
         logErrors: true
-    }),
-    saveUninitialized: true,
-    resave: false,
-    secret: process.env.PASSPORT_SECRET
+    })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -83,6 +83,7 @@ client.on('message', function (topic, message) {
 
 app.use('/', routers);
 app.use(function (err, req, res, next) {
+    console.log(err);
     res.status(500).send(errMsg.createErrMsg(err))
 });
 

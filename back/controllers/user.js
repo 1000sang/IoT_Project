@@ -54,10 +54,13 @@ exports.login = async (req, res, next) => {
 exports.logout = async (req, res, next) => {
     try {
         req.logout();
-        req.session.destroy();
-        res.send('ok');
+        // req.session.destroy();
+        // res.send('ok');
+        req.session.save(() => {
+            res.send('ok')
+        })
     } catch (err) {
         console.log(err)
-        next(err)
+        // next(err)
     }
 }
