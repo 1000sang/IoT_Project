@@ -22,11 +22,11 @@ function getUserAPI() {
 function* loginRequest({ payload }) {
   try {
     const result = yield call(loginAPI, payload);
-    const userId = result.data.userId
+    const token = result.data
 
-    yield call(login, userId);
-    yield put(actions.loginRequestSuccess(userId));
-    // yield call(getUserAPI);
+    yield call(login, token);
+    yield put(actions.loginRequestSuccess(token));
+    yield call(getUserAPI);
   } catch (err) {
     yield put(actions.loginRequestFailure(err.response.data));
   }

@@ -44,8 +44,8 @@ const getCookieFromServer = (key, req) => {
   return rawCookie.split('=')[1];
 };
 
-export const login = (userId) => {
-  cookie.set('userId', userId, { expires: 1 });
+export const login = (token) => {
+  cookie.set('token', token, { expires: 1 });
   Router.push('/dashboard');
 };
 
@@ -72,7 +72,7 @@ export const auth = ctx => {
 };
 
 export const logout = () => {
-  cookie.remove('userId');
+  cookie.remove('token');
   // to support logging out from all windows
   window.localStorage.setItem('logout', Date.now());
 

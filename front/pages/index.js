@@ -26,6 +26,12 @@ export default function SignInPage(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // useEffect(() => {
+  //   if (err) {
+  //     alert(err);
+  //   }
+  // }, [err])
+
   const handleLogin = useCallback(() => {
     if (email == '' && password == '') {
       dispatch(login(true));

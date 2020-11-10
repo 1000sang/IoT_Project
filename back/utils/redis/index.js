@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // process.env.REDIS_PORT, process.env.REDIS_HOST
-let redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
+let redisClient = redis.createClient();
 
 redisClient.on('message', function () {
     console.log('Redis connected');

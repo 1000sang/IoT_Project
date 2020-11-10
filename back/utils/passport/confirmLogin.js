@@ -6,6 +6,7 @@ const Errors = (exports.Errors = {
 })
 
 exports.isLoggedIn = (req, res, next) => {
+    console.log('isLoggedIn', req.session)
     if (req.isAuthenticated()) {
         next();
     } else {

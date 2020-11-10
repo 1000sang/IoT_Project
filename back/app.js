@@ -31,7 +31,7 @@ const client = mqtt.connect(mqttOptions);
 const app = express();
 
 app.use(cors({
-    origin: true,
+    origin: ['http://devfloors.com', 'http://localhost:3003'],
     credentials: true,
 }));
 app.use(bodyParser.json());
