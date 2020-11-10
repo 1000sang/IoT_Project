@@ -17,7 +17,7 @@ exports.getUser = async (req, res, next) => {
 
 exports.getSesssion = async (req, res, next) => {
     try {
-        const session = req.session.key;
+        const session = req.user;
         console.log(session);
         return res.status(200).json(session)
     } catch (err) {
