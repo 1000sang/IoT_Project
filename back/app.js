@@ -46,15 +46,18 @@ if (process.env.NODE_ENV === 'production') {
     app.use(morgan('dev'));
 }
 
-app.use(cookieParser(process.env.PASSPORT_SECRET, { sameSite: "none" }));
+app.use(cookieParser(process.env.PASSPORT_SECRET));
 app.use(session({
-    saveUninitialized: false,
-    resave: false,
-    secret: process.env.PASSPORT_SECRET,
     store: new RedisStore({
         client: redisClient,
         logErrors: true
-    })
+    }),
+    saveUninitialized: false,
+    resave: false,
+    secret: process.env.PASSPORT_SECRET,
+    cookie: {
+        sameSite: 'none'
+    }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
