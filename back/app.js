@@ -29,10 +29,6 @@ const client = mqtt.connect(mqttOptions);
 
 const app = express();
 
-app.use(cors({
-    origin: true,
-    credentials: true,
-}));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -56,11 +52,17 @@ app.use(session({
     resave: false,
     secret: process.env.PASSPORT_SECRET,
     cookie: {
-        sameSite: 'none'
+        sameSite: 'none',
+        secure: true
     }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(cors({
+    origin: true,
+    credentials: true,
+}));
 
 db.sequelize.sync()
     .then(() => {
