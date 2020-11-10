@@ -15,6 +15,16 @@ exports.getUser = async (req, res, next) => {
     return res.status(200).json(user);
 }
 
+exports.getSesssion = async (req, res, next) => {
+    try {
+        const session = req.session.key;
+        return res.status(200).json(session)
+    } catch (err) {
+        console.log('getSession', err);
+        next(err);
+    }
+}
+
 exports.createUser = async (req, res, next) => {
     try {
         const findOneUser = await userService.findOneUserByEmail(req.body.email);
@@ -53,7 +63,9 @@ exports.login = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
     try {
+        console.log('logout', req);
         req.logout();
+
         // req.session.destroy();
         // res.send('ok');
         req.session.save(() => {

@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(session({
-    saveUninitialized: false,
+    saveUninitialized: true,
     resave: false,
     secret: process.env.PASSPORT_SECRET,
     store: new RedisStore({
@@ -83,7 +83,7 @@ client.on('message', function (topic, message) {
 
 app.use('/', routers);
 app.use(function (err, req, res, next) {
-    console.log(err);
+    console.log('err', err);
     res.status(500).send(errMsg.createErrMsg(err))
 });
 

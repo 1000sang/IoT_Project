@@ -5,6 +5,7 @@ const { isLoggedIn, isNotLoggedIn } = require('../utils/passport/confirmLogin');
 const userController = require('../controllers/user');
 
 router.get('/', userController.getUser);
+router.get('/session', userController.getSesssion);
 router.post('/', isNotLoggedIn, userController.createUser);
 router.post('/login', isNotLoggedIn, userController.login);
 router.post('/logout', isLoggedIn, userController.logout);
