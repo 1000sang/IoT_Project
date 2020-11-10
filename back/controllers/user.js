@@ -17,7 +17,7 @@ exports.getUser = async (req, res, next) => {
 
 exports.getSesssion = async (req, res, next) => {
     try {
-        const session = req.user;
+        const session = req.session.passport;
         console.log(session);
         return res.status(200).json(session)
     } catch (err) {
@@ -64,12 +64,17 @@ exports.login = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
     try {
+        console.log()
         console.log('logout', req.session);
-        req.logout(() => {
-            console.log('logout process');
-            req.session.destroy();
+        req.logout();
+        console.log('logout process');
+        req.session.destroy((err) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json(err)
+            }
             console.log('logout destroy');
-            res.send('ok')
+            return res.send('ok')
         });
 
         // req.session.destroy();
