@@ -9,7 +9,8 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
 // next.js custom configuration goes here
 const nextConfig = {
   env: {
-    BACKEND_URL: 'http://ec2.devfloors.com:3065',
+    BACKEND_URL: 'https://elb.devfloors.com:443',
+    // 'https://elb.devfloors.com:443'
     // 'http://ec2.devfloors.com:3065',
     // 'http://localhost:3065',
   },
