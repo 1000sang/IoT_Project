@@ -59,7 +59,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(cors({
-    origin: 'https://www.devfloors.com',
+    origin: true,
     credentials: true,
 }));
 
