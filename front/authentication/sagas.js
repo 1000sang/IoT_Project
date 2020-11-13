@@ -15,18 +15,13 @@ function logoutAPI() {
   return axios.post('/user/logout');
 }
 
-function getUserAPI() {
-  return axios.get('/user');
-}
-
 function* loginRequest({ payload }) {
   try {
     const result = yield call(loginAPI, payload);
-    const token = result.data
-
-    yield call(login, token);
-    yield put(actions.loginRequestSuccess(token));
-    yield call(getUserAPI);
+    const userData = result.data;
+    // yield call(login);
+    yield put(actions.loginRequestSuccess(userData));
+    // yield call(getSessionAPI);
   } catch (err) {
     yield put(actions.loginRequestFailure(err.response.data));
   }

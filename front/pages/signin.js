@@ -15,16 +15,22 @@ import SignInStyleWrapper from '../styled/SignIn.styles';
 
 import ConnectedLine from '../containers/ConnectedLine';
 
-const { login, loginSuccess } = authActions;
+const { login } = authActions;
 
 export default function SignInPage(props) {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { idToken, err } = useSelector((state) => state.Auth)
+  const { idToken, err, userData } = useSelector((state) => state.Auth)
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // useEffect(() => {
+  //   if (userData) {
+  //     alert(JSON.stringify(userData));
+  //   }
+  // }, [userData])
 
   const handleLogin = useCallback(() => {
     if (email == '' && password == '') {

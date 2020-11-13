@@ -6,13 +6,11 @@ const userService = require('../service/user');
 
 exports.getUser = async (req, res, next) => {
     if (req.user) {
-        console.log(req.headers);
         const user = await userService.getUser(req.user.userId);
+        return res.status(200).json(user);
     } else {
         return res.status(200).json(null);
     }
-
-    return res.status(200).json(user);
 }
 
 exports.getSesssion = async (req, res, next) => {
@@ -64,16 +62,12 @@ exports.login = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
     try {
-        console.log()
-        console.log('logout', req.session);
         req.logout();
-        console.log('logout process');
         req.session.destroy((err) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json(err)
             }
-            console.log('logout destroy');
             return res.send('ok')
         });
 
@@ -84,6 +78,6 @@ exports.logout = async (req, res, next) => {
         // })
     } catch (err) {
         console.log(err)
-        // next(err)
+        next(err)
     }
 }

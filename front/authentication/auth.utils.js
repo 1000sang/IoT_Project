@@ -44,9 +44,9 @@ const getCookieFromServer = (key, req) => {
   return rawCookie.split('=')[1];
 };
 
-export const login = (token) => {
-  cookie.set('token', token, { expires: 1 });
-  Router.push('/dashboard');
+export const login = () => {
+  // cookie.set('token', token, { expires: 1 });
+  // Router.push('/dashboard');
 };
 
 export const auth = ctx => {
@@ -67,7 +67,7 @@ export const auth = ctx => {
   //   Router.push('/signin');
   // }
 
-  console.log(token);
+  // console.log(token);
   return token;
 };
 

@@ -16,9 +16,9 @@ const actions = {
     type: actions.JWT_LOGIN_REQUEST_START,
     payload: { history, userInfo },
   }),
-  loginRequestSuccess: token => ({
+  loginRequestSuccess: userData => ({
     type: actions.LOGIN_REQUEST_SUCCESS,
-    payload: token,
+    payload: userData,
   }),
   loginRequestFailure: err => ({
     type: actions.LOGIN_REQUEST_FAILURE,
