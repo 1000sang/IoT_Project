@@ -45,7 +45,7 @@ class Topbar extends Component {
               <TopbarSearch locale={locale} />
             </li>
 
-            <li
+            {/* <li
               onClick={() => this.setState({ selectedItem: 'notification' })}
               className="isoNotify"
             >
@@ -63,7 +63,7 @@ class Topbar extends Component {
               className="isoCart"
             >
               <TopbarAddtoCart url={url} locale={locale} />
-            </li>
+            </li> */}
 
             <li
               onClick={() => this.setState({ selectedItem: 'user' })}
