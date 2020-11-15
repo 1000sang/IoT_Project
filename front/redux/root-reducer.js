@@ -25,6 +25,7 @@ import profile from '@iso/redux/profile/reducer';
 import githubSearch from '@iso/redux/githubSearch/reducers';
 
 import userReducer from './user/reducer';
+import loadReducer from './load/reducer';
 
 export default combineReducers({
   Auth,
@@ -51,5 +52,6 @@ export default combineReducers({
   drawer,
   profile,
   githubSearch,
-  userReducer
+  userReducer,
+  loadReducer
 });

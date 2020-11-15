@@ -46,7 +46,8 @@ app.use(cookieParser(process.env.PASSPORT_SECRET));
 app.use(session({
     store: new RedisStore({
         client: redisClient,
-        logErrors: true
+        logErrors: true,
+        ttl: 60 * 60
     }),
     saveUninitialized: false,
     resave: false,

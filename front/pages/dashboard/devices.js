@@ -27,12 +27,12 @@ export default withAuthSync(() => (
       <title>Devices</title>
     </Head>
     <DashboardLayout>
-      <Chart />
+      <Devices />
     </DashboardLayout>
   </>
 ));
 
-function Chart() {
+function Devices() {
   const { rowStyle, colStyle, gutter } = basicStyle;
   return (
     <LayoutWrapper className="isoMapPage">

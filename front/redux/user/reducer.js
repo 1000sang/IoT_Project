@@ -24,6 +24,7 @@ export default function userReducer(state = initState, action) {
                 draft.signUpLoading = false
                 draft.isSignedUp = false
                 draft.signUpError = action.data
+                break;
             default:
                 break;
         }

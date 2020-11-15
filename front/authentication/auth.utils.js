@@ -3,6 +3,8 @@ import Router from 'next/router';
 import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
 
+import axios from '../pages/api/axios';
+
 export const setCookie = (key, value) => {
   if (process.browser) {
     console.log('setCookie')
@@ -44,13 +46,14 @@ const getCookieFromServer = (key, req) => {
   return rawCookie.split('=')[1];
 };
 
-export const login = () => {
-  // cookie.set('token', token, { expires: 1 });
+export const login = (userData) => {
+  cookie.set('token', userData, { expires: 1 });
   // Router.push('/dashboard');
 };
 
 export const auth = ctx => {
   const { token } = nextCookie(ctx);
+  // console.log('auth token', token)
 
   /*
    * If `ctx.req` is available it means we are on the server.

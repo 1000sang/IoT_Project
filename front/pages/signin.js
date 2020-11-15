@@ -34,7 +34,11 @@ export default function SignInPage(props) {
 
   const handleLogin = useCallback(() => {
     if (email == '' && password == '') {
-      dispatch(login(true));
+      const data = {
+        email: 'devfloors@devfloors.com',
+        password: 'a'
+      }
+      dispatch(login(data));
     } else {
       const data = {
         email: email,
@@ -79,7 +83,7 @@ export default function SignInPage(props) {
                 <Input
                   id="email"
                   size="large"
-                  placeholder="guesst@devfloors.com"
+                  placeholder="devfloors@devfloors.com"
                   onChange={useCallback(e => {
                     setEmail(e.target.value);
                   })}
