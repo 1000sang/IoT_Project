@@ -23,6 +23,9 @@ exports.setRedisUsersDevices = async (userId, Devices) => {
 
 exports.deleteRedisKeys = async (userId) => {
     try {
+        console.log('userId', userId);
+        console.log(`${userId}/device`)
+        console.log(redisClient.exists(`${userId}/device`))
         if (redisClient.exists(`${userId}/device`)) {
             redisClient.del(`${userId}/device`);
         }
