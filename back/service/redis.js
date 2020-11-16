@@ -9,7 +9,7 @@ const Errors = (exports.Errors = {
 exports.setRedisUsersDevices = async (userId, Devices) => {
     try {
         Devices.map((v, i) => {
-            redisClient.hmset(`${userId}/divice`, `${v.deviceId}`, `${v.topic}`)
+            redisClient.hmset(`${userId}/device`, `${v.deviceId}`, `${v.topic}`)
         })
 
         // redisClient.hgetall(`${userId}/divice`, (err, obj) => {
