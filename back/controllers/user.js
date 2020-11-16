@@ -65,14 +65,13 @@ exports.login = async (req, res, next) => {
 
 exports.logout = async (req, res, next) => {
     try {
+        await redisService.deleteRedisKeys(req.user.userId);
         req.logout();
         req.session.destroy((err) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json(err)
             }
-            console.log('logout req', req)
-            // await redisService.deleteRedisKeys()
             return res.send('ok')
         });
 
