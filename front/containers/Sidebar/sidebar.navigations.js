@@ -91,7 +91,7 @@ export default [
   // },
   {
     key: 'devices',
-    label: 'Devices',
+    label: 'sidebar.devices',
     leftIcon: 'ion-arrow-graph-up-right',
     // children: [
     //   {

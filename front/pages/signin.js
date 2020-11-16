@@ -11,11 +11,13 @@ import jwtConfig from '@iso/config/jwt.config';
 import Auth0 from '../authentication/Auth0';
 import FirebaseLogin from '@iso/containers/FirebaseForm/FirebaseForm';
 import authActions from '../authentication/actions';
+import loadActions from '../redux/load/actions';
 import SignInStyleWrapper from '../styled/SignIn.styles';
 
 import ConnectedLine from '../containers/ConnectedLine';
 
 const { login } = authActions;
+const { loadUser, loadData } = loadActions;
 
 export default function SignInPage(props) {
   const dispatch = useDispatch();
@@ -25,6 +27,11 @@ export default function SignInPage(props) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // useEffect(() => {
+  //   dispatch(loadUser);
+  //   dispatch(loadData);
+  // }, [])
 
   // useEffect(() => {
   //   if (userData) {

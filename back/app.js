@@ -9,8 +9,8 @@ const helmet = require('helmet');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
-let RedisStore = require('connect-redis')(session);
-let redisClient = require('./utils/redis');
+const RedisStore = require('connect-redis')(session);
+const redisClient = require('./utils/redis');
 
 const routers = require('./routes');
 const db = require('./models');

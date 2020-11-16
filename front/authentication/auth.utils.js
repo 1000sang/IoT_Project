@@ -71,6 +71,7 @@ export const auth = ctx => {
   // }
 
   // console.log(token);
+
   return token;
 };
 

@@ -6,7 +6,6 @@ function getUserAPI() {
     return axios.get('/user');
 }
 
-
 function* getUserRequest() {
     try {
         const result = yield call(getUserAPI);
@@ -18,35 +17,12 @@ function* getUserRequest() {
     }
 }
 
-function* logoutRequest() {
-    try {
-        yield call(logoutAPI);
-        yield call(logout);
-        yield put(actions.logoutRequestSuccess());
-    } catch (error) {
-        yield put(actions.logoutRequestFailure(error));
-    }
-}
-
-// export function* loginSuccess() {
-//   yield takeLatest(actions.LOGIN_SUCCESS, function* (token) {
-//     yield setCookie('id_token', token);
-//   });
-// }
-
-// export function* loginError() {
-//   yield takeLatest(actions.LOGIN_ERROR, function*() {});
-// }
-
 export function* onLoadUser() {
     yield takeLatest(actions.LOAD_USER_REQUEST, getUserRequest);
 }
-export function* onLogout() {
-    yield takeLatest(actions.LOGOUT_REQUEST_START, logoutRequest);
-}
+
 export default function* rootSaga() {
     yield all([
         call(onLoadUser),
-
     ]);
 }

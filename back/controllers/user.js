@@ -3,6 +3,7 @@ const passport = require('passport');
 
 const { verifyToken } = require('../utils/token');
 const userService = require('../service/user');
+const redisService = require('../service/redis');
 
 exports.getUser = async (req, res, next) => {
     if (req.user) {
@@ -54,8 +55,10 @@ exports.login = async (req, res, next) => {
             }
 
             const findOneUser = await userService.findOneUser(user.userId);
+            const setRedisUsersDevices = await redisService.setRedisUsersDevices(findOneUser.userId, findOneUser.Devices);
 
-            return res.status(200).send(findOneUser)
+
+            return res.status(200).send('login ok');
         })
     })(req, res, next);
 }

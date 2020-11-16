@@ -4,10 +4,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // process.env.REDIS_PORT, process.env.REDIS_HOST
-let redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
-
-redisClient.on('error', function (err) {
-    console.log('Redis error: ' + err);
-})
+let redisClient = redis.createClient();
 
 module.exports = redisClient

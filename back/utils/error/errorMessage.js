@@ -8,7 +8,8 @@ const messages = {
     FailureCreateToken: '토큰생성에 실패했습니다.',
     NeedLogin: '로그인이 필요합니다.',
     NeedNotLogin: '로그인하지 않은 사용자만 접근 가능합니다.',
-    UnknowError: '알수없는 에러'
+    UnknowError: '알수없는 에러',
+    UnknownRedisError: '알수없는 레디스 에러'
 }
 
 exports.createErrMsg = err => {
