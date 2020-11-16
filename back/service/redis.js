@@ -8,6 +8,7 @@ const Errors = (exports.Errors = {
 
 exports.setRedisUsersDevices = async (userId, Devices) => {
     try {
+        console.log('setRedis')
         Devices.map((v, i) => {
             redisClient.hmset(`${userId}/divice`, `${v.deviceId}`, `${v.topic}`)
         })
