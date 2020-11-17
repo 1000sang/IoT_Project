@@ -88,6 +88,18 @@ app.use(function (err, req, res, next) {
     res.status(500).send(errMsg.createErrMsg(err))
 });
 
-app.listen(3065, () => {
-    console.log('서버 실행 중');
-});
+
+const http = require('http').createServer(app);
+const io = require('socket.io')(http, { origin: '*:*' });
+
+io.on('connection', (socket) => {
+    console.log('user connected');
+
+})
+
+// app.listen(3065, () => {
+//     console.log('서버 실행 중');
+// });
+http.listen(3065, () => {
+    console.log('connected')
+})

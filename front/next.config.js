@@ -13,6 +13,7 @@ const nextConfig = {
     // 'https://elb.devfloors.com:443'
     // 'http://ec2.devfloors.com:3065',
     // 'http://localhost:3065',
+    MQTT_URL: 'mqtt://ec2.devfloors.com'
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
