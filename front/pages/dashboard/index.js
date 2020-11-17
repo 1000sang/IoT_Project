@@ -4,36 +4,19 @@ import { withAuthSync } from '../../authentication/auth.utils';
 import DashboardLayout from '../../containers/DashboardLayout/DashboardLayout';
 import Widgets from '@iso/containers/Widgets/Widgets';
 
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 
-// const socketClient = io('ws://localhost:1883', { transports: ['websocket'] });
+const socketClient = io('http://localhost:3065', { transports: ['websocket'] });
 
-// function socketConnect() {
-//   socketClient.on('connect', () => {
-//     console.log('socket connected');
-//   })
-// }
+function socketConnect() {
+  socketClient.on('connect', () => {
+    console.log('socket connected');
+  })
+}
 
-import mqtt from 'mqtt';
-
-const mqttConnect = mqtt.connect('ws://localhost:1883');
-
-// import { Connect, subscribe } from 'mqtt-react';
-// const MessageContainer = subscribe({ topic: 'DHT11' });
 
 export default withAuthSync(() => {
-  // socketConnect();
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    mqttConnect.on('connect', () => {
-      console.log('connect')
-    })
-    mqttConnect.on('message', (topic, payload, packet) => {
-      console.log(topic)
-      setMessages(payload.toString())
-    })
-  })
+  socketConnect();
 
   return (
     <>
