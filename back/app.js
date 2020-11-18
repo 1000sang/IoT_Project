@@ -31,6 +31,20 @@ const client = mqtt.connect(mqttOptions);
 
 const app = express();
 
+const sessionMiddleware = session({
+    store: new RedisStore({
+        client: redisClient,
+        logErrors: true,
+        ttl: 60 * 60
+    }),
+    saveUninitialized: false,
+    resave: false,
+    secret: process.env.PASSPORT_SECRET,
+    cookie: {
+        sameSite: 'lax'
+    }
+});
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -45,19 +59,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(cookieParser(process.env.PASSPORT_SECRET));
-app.use(session({
-    store: new RedisStore({
-        client: redisClient,
-        logErrors: true,
-        ttl: 60 * 60
-    }),
-    saveUninitialized: false,
-    resave: false,
-    secret: process.env.PASSPORT_SECRET,
-    cookie: {
-        sameSite: 'lax'
-    }
-}));
+app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -135,4 +137,4 @@ const server = http.listen(3065, () => {
     console.log('connected')
 });
 
-webSocket(server);
+webSocket(server, sessionMiddleware);
