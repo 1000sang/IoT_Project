@@ -102,6 +102,11 @@ const io = require('socket.io')(http, { origin: '*:*' });
 io.use(function (socket, next) {
     console.log(socket.request.headers.cookie)
     console.log(cookie.parse(socket.request.headers.cookie))
+    const cookie = cookie.parse(socket.request.headers.cookie)
+    const sessionId = cookieParser.signedCookie(cookie['connect.sid'], process.env.PASSPORT_SECRET);
+    console.log('sessionId', sessionId)
+    console.log('sessionStore', session.store)
+
 })
 
 // app.listen(3065, () => {
