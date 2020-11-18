@@ -94,6 +94,7 @@ const io = require('socket.io')(http, { origin: '*:*' });
 
 io.on('connection', (socket) => {
     console.log('user connected');
+    console.log('socket', socket)
 
 })
 

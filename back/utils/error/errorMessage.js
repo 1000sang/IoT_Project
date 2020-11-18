@@ -9,7 +9,8 @@ const messages = {
     NeedLogin: '로그인이 필요합니다.',
     NeedNotLogin: '로그인하지 않은 사용자만 접근 가능합니다.',
     UnknowError: '알수없는 에러',
-    UnknownRedisError: '알수없는 레디스 에러'
+    UnknownRedisError: '알수없는 레디스 에러',
+    UnknownSocketError: '알수없는 소켓 에러'
 }
 
 exports.createErrMsg = err => {
