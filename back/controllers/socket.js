@@ -2,7 +2,7 @@ const socketService = require('../service/socket');
 
 exports.getSocket = async (req, res, next) => {
     console.log('getSocket API')
-    return req
+    return res.json(req)
 }
 
 exports.createSocketRoom = async (req, res, next) => {
