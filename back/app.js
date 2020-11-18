@@ -99,10 +99,26 @@ const io = require('socket.io')(http, { origin: '*:*' });
 // })
 
 io.use(function (socket, next) {
-    const cookie = socket.request.headers.cookie
-    const cookieParse = cookie.split('=');
-    console.log(cookieParse)
-    console.log('session', socket.request)
+    // const cookie = socket.request.headers.cookie
+    // const cookieParse = cookie.split('=');
+    // console.log(cookieParser.signedCookie(cookieParse[1], process.env.PASSPORT_SECRET))
+    // console.log(cookieParse)
+    // console.log('session', socket.request)
+
+    // app.get('/socket', (req, res) => {
+    //     console.log('get socket')
+    //     console.log('req.session', req.session)
+    //     console.log('req.sessionId', req.sessionID)
+    // })
+    io.on('connection', (socket) => {
+
+        console.log('connection')
+        app.get('/socket', (req, res) => {
+            console.log('get socket')
+            console.log('req.session', req.session)
+            console.log('req.sessionId', req.sessionID)
+        })
+    })
 })
 
 // app.listen(3065, () => {
