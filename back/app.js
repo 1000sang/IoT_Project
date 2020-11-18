@@ -17,6 +17,8 @@ const db = require('./models');
 const passportConfig = require('./utils/passport');
 const errMsg = require('./utils/error/errorMessage');
 
+// const webSocket = require('./utils/socket');
+
 dotenv.config()
 
 const mqtt = require('mqtt');
@@ -89,10 +91,11 @@ app.use(function (err, req, res, next) {
 });
 
 const http = require('http').createServer(app);
-const io = require('socket.io')(http, { origin: '*:*' });
-io.on('connection', (socket) => {
-    console.log('app socket connection')
-})
+// const io = require('socket.io')(http, { origin: '*:*' });
+
+// io.on('connection', (socket) => {
+//     console.log('app socket connection')
+// })
 
 // io.on('connection', (socket) => {
 //     console.log('user connected');
@@ -127,6 +130,9 @@ io.on('connection', (socket) => {
 // app.listen(3065, () => {
 //     console.log('서버 실행 중');
 // });
+
 http.listen(3065, () => {
     console.log('connected')
-})
+});
+
+// webSocket(server);
