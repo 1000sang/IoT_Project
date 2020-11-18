@@ -16,9 +16,12 @@ module.exports = (server, app, sessionMiddleware) => {
     io.on('connection', async (socket) => {
         try {
             console.log('sdfadf')
+            console.log(socket.request)
             console.log('asdfasdfs')
-            const getSocket = await axios.get('http://localhost:3065/user/session');
-            console.log(getSocket)
+            console.log(socket.id)
+
+            // const getSocket = await axios.get('http://localhost:3065/user/session');
+            // console.log(getSocket)
         } catch (err) {
             console.log(err)
         }
