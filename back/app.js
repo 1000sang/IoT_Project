@@ -90,6 +90,9 @@ app.use(function (err, req, res, next) {
 
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, { origin: '*:*' });
+io.on('connection', (socket) => {
+    console.log('app socket connection')
+})
 
 // io.on('connection', (socket) => {
 //     console.log('user connected');
