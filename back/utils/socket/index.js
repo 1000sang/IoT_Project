@@ -1,13 +1,9 @@
-// const io = require('socket.io')(http, { origin: '*:*' });
-// const dotenv = require('dotenv');
+const io = require('socket.io');
 
-// dotenv.config();
+module.exports = (server) => {
+    const socket = io(server, { origin: '*:*' });
 
-
-// io.on('connection', (socket) => {
-//     console.log('user connected');
-//     console.log('socket', socket)
-//     console.log('socket cookie', socket.handshake.headers.cookie)
-// })
-
-// module.exports = io
+    socket.on('connection', (socket, req) => {
+        console.log('socket connect')
+    })
+}

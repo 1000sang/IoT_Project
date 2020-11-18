@@ -17,7 +17,7 @@ const db = require('./models');
 const passportConfig = require('./utils/passport');
 const errMsg = require('./utils/error/errorMessage');
 
-// const webSocket = require('./utils/socket');
+const webSocket = require('./utils/socket');
 
 dotenv.config()
 
@@ -131,8 +131,8 @@ const http = require('http').createServer(app);
 //     console.log('서버 실행 중');
 // });
 
-http.listen(3065, () => {
+const server = http.listen(3065, () => {
     console.log('connected')
 });
 
-// webSocket(server);
+webSocket(server);
