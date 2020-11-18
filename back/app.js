@@ -93,45 +93,6 @@ app.use(function (err, req, res, next) {
 });
 
 const http = require('http').createServer(app);
-// const io = require('socket.io')(http, { origin: '*:*' });
-
-// io.on('connection', (socket) => {
-//     console.log('app socket connection')
-// })
-
-// io.on('connection', (socket) => {
-//     console.log('user connected');
-//     console.log('socket', socket)
-//     console.log('socket cookie', socket.handshake.headers.cookie)
-//     console.log(socket.request.geaders.cookie)
-// })
-
-// io.use(function (socket, next) {
-//     // const cookie = socket.request.headers.cookie
-//     // const cookieParse = cookie.split('=');
-//     // console.log(cookieParser.signedCookie(cookieParse[1], process.env.PASSPORT_SECRET))
-//     // console.log(cookieParse)
-//     // console.log('session', socket.request)
-
-//     // app.get('/socket', (req, res) => {
-//     //     console.log('get socket')
-//     //     console.log('req.session', req.session)
-//     //     console.log('req.sessionId', req.sessionID)
-//     // })
-//     io.on('connection', (socket) => {
-
-//         console.log('connection')
-//         app.get('/socket', (req, res) => {
-//             console.log('get socket')
-//             console.log('req.session', req.session)
-//             console.log('req.sessionId', req.sessionID)
-//         })
-//     })
-// })
-
-// app.listen(3065, () => {
-//     console.log('서버 실행 중');
-// });
 
 const server = http.listen(3065, () => {
     console.log('connected')
