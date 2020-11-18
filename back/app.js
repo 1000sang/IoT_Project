@@ -89,6 +89,13 @@ app.use(function (err, req, res, next) {
 });
 
 const http = require('http').createServer(app);
+const io = require('socket.io')(http, { origin: '*:*' });
+
+io.on('connection', (socket) => {
+    console.log('user connected');
+    console.log('socket', socket)
+    console.log('socket cookie', socket.handshake.headers.cookie)
+})
 
 // app.listen(3065, () => {
 //     console.log('서버 실행 중');
