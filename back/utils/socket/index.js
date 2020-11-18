@@ -13,30 +13,22 @@ module.exports = (server, app, sessionMiddleware) => {
     //         next(err);
     //     }
     // });
-    io.use((socket, next) => {
-        console.log('qqqq')
-        console.log(socket.request.res)
-        app.use((req, res, next) => {
-            console.log('app.use')
-            console.log(req.session)
-        })
-    })
 
-    io.on('connection', async (socket) => {
-        try {
-            console.log('sdfadf')
-            // console.log(socket.request)
-            // console.log(' ')
-            // console.log(socket.request.res)
-            console.log('asdfasdfs')
-            console.log(socket.id)
+    // io.on('connection', async (socket) => {
+    //     try {
+    //         console.log('sdfadf')
+    //         // console.log(socket.request)
+    //         // console.log(' ')
+    //         // console.log(socket.request.res)
+    //         console.log('asdfasdfs')
+    //         console.log(socket.id)
 
 
-            // const getSocket = await axios.get('http://localhost:3065/user/session');
-            // console.log(getSocket)
-        } catch (err) {
-            console.log(err)
-        }
-    })
+    //         // const getSocket = await axios.get('http://localhost:3065/user/session');
+    //         // console.log(getSocket)
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // })
 }
 
