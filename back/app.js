@@ -7,6 +7,7 @@ const hpp = require('hpp');
 const helmet = require('helmet');
 
 const session = require('express-session');
+const cookie = require('cookie');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const RedisStore = require('connect-redis')(session);
@@ -91,10 +92,16 @@ app.use(function (err, req, res, next) {
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, { origin: '*:*' });
 
-io.on('connection', (socket) => {
-    console.log('user connected');
-    console.log('socket', socket)
-    console.log('socket cookie', socket.handshake.headers.cookie)
+// io.on('connection', (socket) => {
+//     console.log('user connected');
+//     console.log('socket', socket)
+//     console.log('socket cookie', socket.handshake.headers.cookie)
+//     console.log(socket.request.geaders.cookie)
+// })
+
+io.use(function (socket, next) {
+    console.log(socket.request.headers.cookie)
+    console.log(cookie.parse(socket.request.headers.cookie))
 })
 
 // app.listen(3065, () => {
