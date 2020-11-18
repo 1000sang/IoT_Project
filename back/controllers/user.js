@@ -63,9 +63,10 @@ exports.login = async (req, res, next) => {
             console.log('njonono')
 
             socket.on('connection', (socket) => {
+                console.log(socket.id)
                 console.log('connect')
             })
-
+            console.log('cncncncncn')
             return res.status(200).send('login ok');
         })
     })(req, res, next);
