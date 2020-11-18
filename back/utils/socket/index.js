@@ -14,7 +14,13 @@ module.exports = (server, app, sessionMiddleware) => {
     // });
 
     io.on('connection', async (socket) => {
-        const getSocket = await axios.get('http://loaclhost:3065/socket');
-        console.log(getSocket)
+        try {
+            console.log('sdfadf')
+            console.log()
+            const getSocket = await axios.get('http://loaclhost:3065/socket');
+            console.log(getSocket)
+        } catch (err) {
+            console.log(err)
+        }
     })
 }
