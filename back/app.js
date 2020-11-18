@@ -21,6 +21,7 @@ const errMsg = require('./utils/error/errorMessage');
 dotenv.config()
 
 const mqtt = require('mqtt');
+const { iLike } = require('sequelize/types/lib/operators');
 const mqttOptions = {
     host: process.env.MQTT_HOST,
     port: process.env.MQTT_PORT,
@@ -107,6 +108,11 @@ io.use(function (socket, next) {
     console.log('sessionId', sessionId)
     console.log('sessionStore', session.store)
 
+})
+
+io.on('connection', function (socket) {
+    console.log('sessionId', sessionId)
+    console.log('sessionStore', session.store)
 })
 
 // app.listen(3065, () => {
