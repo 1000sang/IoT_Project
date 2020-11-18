@@ -102,6 +102,7 @@ io.use(function (socket, next) {
     const cookie = socket.request.headers.cookie
     const cookieParse = cookie.split('=');
     console.log(cookieParse)
+    console.log('sessionStore', session.store)
 })
 
 // app.listen(3065, () => {
