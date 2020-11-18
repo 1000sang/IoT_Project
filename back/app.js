@@ -44,7 +44,7 @@ const sessionMiddleware = session({
         sameSite: 'lax'
     }
 });
-
+app.use('/favicon.ico', () => { });
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -137,4 +137,4 @@ const server = http.listen(3065, () => {
     console.log('connected')
 });
 
-webSocket(server, sessionMiddleware);
+webSocket(server, app, sessionMiddleware);

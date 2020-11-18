@@ -1,16 +1,20 @@
-const io = require('socket.io');
+const socketIo = require('socket.io');
+const axios = require('axios');
 
-module.exports = (server, sessionMiddleware) => {
-    const socket = io(server, { origin: '*:*' });
-    socket.use((socket, next) => {
-        sessionMiddleware(socket.request, socket.request.res, next);
-    });
+module.exports = (server, app, sessionMiddleware) => {
+    const io = socketIo(server, { origin: '*:*' });
 
+    // io.use((socket, next) => {
+    //     try {
+    //         sessionMiddleware(socket.request, socket.request.res, next);
+    //     } catch (err) {
+    //         console.log(err);
+    //         next(err);
+    //     }
+    // });
 
-
-    socket.on('connection', (socket) => {
-        console.log('socket connect')
-        console.log('socket.request', socket.request);
-        console.log('sessionId', socket.request.session)
+    io.on('connection', async (socket) => {
+        const getSocket = await axios.get('http://loaclhost:3065/socket');
+        console.log(getSocket)
     })
 }
