@@ -100,7 +100,8 @@ const io = require('socket.io')(http, { origin: '*:*' });
 
 io.use(function (socket, next) {
     const cookie = socket.request.headers.cookie
-    console.log(cookie['connect.sid'])
+    const cookieParse = cookie.split('=');
+    console.log(cookieParse)
 })
 
 // app.listen(3065, () => {
