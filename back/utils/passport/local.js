@@ -3,6 +3,8 @@ const { Strategy: LocalStrategy } = require('passport-local');
 const bcypt = require('bcryptjs');
 const { User } = require('../../models');
 
+const io = require('socket.io');
+
 module.exports = () => {
     passport.use(new LocalStrategy({
         usernameField: 'email',
@@ -19,6 +21,10 @@ module.exports = () => {
 
             const result = await bcypt.compare(password, user.password);
             if (result) {
+                io.on('connection', socket => {
+                    console.log('socketConnect')
+                    socket.send('hello');
+                })
                 return done(null, user);
             }
             return done(null, false, { reason: '아이디 혹은 비밀번호가 틀렸습니다.' });

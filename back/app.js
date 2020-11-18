@@ -98,28 +98,28 @@ const io = require('socket.io')(http, { origin: '*:*' });
 //     console.log(socket.request.geaders.cookie)
 // })
 
-io.use(function (socket, next) {
-    // const cookie = socket.request.headers.cookie
-    // const cookieParse = cookie.split('=');
-    // console.log(cookieParser.signedCookie(cookieParse[1], process.env.PASSPORT_SECRET))
-    // console.log(cookieParse)
-    // console.log('session', socket.request)
+// io.use(function (socket, next) {
+//     // const cookie = socket.request.headers.cookie
+//     // const cookieParse = cookie.split('=');
+//     // console.log(cookieParser.signedCookie(cookieParse[1], process.env.PASSPORT_SECRET))
+//     // console.log(cookieParse)
+//     // console.log('session', socket.request)
 
-    // app.get('/socket', (req, res) => {
-    //     console.log('get socket')
-    //     console.log('req.session', req.session)
-    //     console.log('req.sessionId', req.sessionID)
-    // })
-    io.on('connection', (socket) => {
+//     // app.get('/socket', (req, res) => {
+//     //     console.log('get socket')
+//     //     console.log('req.session', req.session)
+//     //     console.log('req.sessionId', req.sessionID)
+//     // })
+//     io.on('connection', (socket) => {
 
-        console.log('connection')
-        app.get('/socket', (req, res) => {
-            console.log('get socket')
-            console.log('req.session', req.session)
-            console.log('req.sessionId', req.sessionID)
-        })
-    })
-})
+//         console.log('connection')
+//         app.get('/socket', (req, res) => {
+//             console.log('get socket')
+//             console.log('req.session', req.session)
+//             console.log('req.sessionId', req.sessionID)
+//         })
+//     })
+// })
 
 // app.listen(3065, () => {
 //     console.log('서버 실행 중');
