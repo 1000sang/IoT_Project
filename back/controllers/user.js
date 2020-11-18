@@ -57,6 +57,8 @@ exports.login = async (req, res, next) => {
             const findOneUser = await userService.findOneUser(user.userId);
             await redisService.setRedisUsersDevices(findOneUser.userId, findOneUser.Devices);
 
+            const socket = req.app.get('io')
+            console.log(socket)
 
             return res.status(200).send('login ok');
         })
