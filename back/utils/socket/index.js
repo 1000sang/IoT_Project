@@ -12,13 +12,17 @@ module.exports = (server, app, sessionMiddleware) => {
     //         next(err);
     //     }
     // });
+    io.use((socket, next) => {
+        console.log('qqqq')
+        console.log(socket.request.res)
+    })
 
     io.on('connection', async (socket) => {
         try {
             console.log('sdfadf')
-            console.log(socket.request)
-            console.log(' ')
-            console.log(socket.request.res)
+            // console.log(socket.request)
+            // console.log(' ')
+            // console.log(socket.request.res)
             console.log('asdfasdfs')
             console.log(socket.id)
 
@@ -30,3 +34,4 @@ module.exports = (server, app, sessionMiddleware) => {
         }
     })
 }
+
