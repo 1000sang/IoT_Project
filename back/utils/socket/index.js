@@ -17,8 +17,11 @@ module.exports = (server, app, sessionMiddleware) => {
         try {
             console.log('sdfadf')
             console.log(socket.request)
+            console.log(' ')
+            console.log(socket.request.res)
             console.log('asdfasdfs')
             console.log(socket.id)
+
 
             // const getSocket = await axios.get('http://localhost:3065/user/session');
             // console.log(getSocket)
