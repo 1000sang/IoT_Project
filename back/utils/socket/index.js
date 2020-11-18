@@ -16,6 +16,10 @@ module.exports = (server, app, sessionMiddleware) => {
     io.use((socket, next) => {
         console.log('qqqq')
         console.log(socket.request.res)
+        app.use((req, res, next) => {
+            console.log('app.use')
+            console.log(req.session)
+        })
     })
 
     io.on('connection', async (socket) => {
