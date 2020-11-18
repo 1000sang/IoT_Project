@@ -86,6 +86,12 @@ client.on('message', function (topic, message) {
     console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
 })
 
+app.use((req, res, next) => {
+    console.log('appjs')
+    console.los(req.session)
+    console.log(req.sessionID)
+})
+
 app.use('/', routers);
 app.use(function (err, req, res, next) {
     console.log('err', err);

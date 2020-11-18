@@ -3,6 +3,7 @@ const axios = require('axios');
 
 module.exports = (server, app, sessionMiddleware) => {
     const io = socketIo(server, { origin: '*:*' });
+    app.set('io', io);
 
     // io.use((socket, next) => {
     //     try {
