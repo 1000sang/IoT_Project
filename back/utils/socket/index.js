@@ -13,6 +13,7 @@ module.exports = (server, app) => {
             console.log('login data', data)
             redisClient.hgetall(`${data.userId}/device`, (err, obj) => {
                 console.log('redisClient', Object.values(obj))
+                console.log('redisClient', Object.values(obj)[0])
                 // console.log('redisClient deviceId', obj[0].deviceId)
             })
         })
