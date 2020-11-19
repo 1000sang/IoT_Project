@@ -12,6 +12,11 @@ module.exports = (server, app) => {
         socket.on('login', (data) => {
             console.log('login data', data)
             redisClient.hgetall(`${data.userId}/device`, (err, obj) => {
+                const topics = Object.values(obj)
+                topics.map((v, i) => {
+                    console.log(v)
+                })
+
                 console.log('redisClient', Object.values(obj))
                 console.log('redisClient', Object.values(obj)[0])
                 // console.log('redisClient deviceId', obj[0].deviceId)
