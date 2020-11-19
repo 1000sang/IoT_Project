@@ -9,10 +9,11 @@ module.exports = (server, app) => {
 
     device.on('connection', (socket) => {
         console.log('device 네임스페이스 접속');
-        socket.on('login', (data) => {
+        socket.on('login', async (data) => {
             console.log('login data', data)
-            const result = redisClient.hgetall(`${data.userId}/device`)
-            console.log('redisClient', result)
+            await redisClient.hgetall(`${data.userId}/device`, (err, obj) => {
+                console.log('redisClient', obj)
+            })
         })
         // const req = socket.request;
         // const { headers: { referer } } = req;
