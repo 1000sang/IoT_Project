@@ -21,13 +21,6 @@ const webSocket = require('./utils/socket');
 
 dotenv.config()
 
-const mqtt = require('mqtt');
-const mqttOptions = {
-    host: process.env.MQTT_HOST,
-    port: process.env.MQTT_PORT,
-    protocol: 'mqtt'
-}
-const client = mqtt.connect(mqttOptions);
 
 const app = express();
 
@@ -73,18 +66,6 @@ db.sequelize.sync()
         console.log('db 연결 성공 ')
     })
     .catch(console.error);
-
-client.on('connect', () => {
-    console.log('connected : ' + client.connected)
-})
-client.on('error', (err) => {
-    console.log(err)
-})
-
-client.subscribe('DHT11');
-client.on('message', function (topic, message) {
-    console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
-})
 
 app.use('/', routers);
 app.use(function (err, req, res, next) {
