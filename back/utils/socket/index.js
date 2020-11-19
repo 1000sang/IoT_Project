@@ -44,32 +44,31 @@ module.exports = (server, app) => {
                     console.log('hgetall err', err)
                     return;
                 }
-                console.log(obj)
-                console.log(!obj)
-                // if (!obj) {
-                //     devices = Object.keys(obj);
-                //     topics = Object.values(obj);
 
-                //     console.log('devices', devices)
-                //     console.log('topics', topics)
-                //     // devices.map((v) => {
-                //     //     socket.join(v);
-                //     //     console.log(`${v} 룸이 생성되었습니다.`);
-                //     //     socket.to(`${v}`).emit('join', {
-                //     //         msg: `${v}루에 입장하셧습니다.`
-                //     //     })
-                //     // })
+                if (obj) {
+                    devices = Object.keys(obj);
+                    topics = Object.values(obj);
 
-                //     // topics.map((v, i) => {
-                //     //     console.log(v)
-                //     //     // mqttClient.subscribe(v);
+                    console.log('devices', devices)
+                    console.log('topics', topics)
+                    // devices.map((v) => {
+                    //     socket.join(v);
+                    //     console.log(`${v} 룸이 생성되었습니다.`);
+                    //     socket.to(`${v}`).emit('join', {
+                    //         msg: `${v}루에 입장하셧습니다.`
+                    //     })
+                    // })
 
-                //     // })
+                    // topics.map((v, i) => {
+                    //     console.log(v)
+                    //     // mqttClient.subscribe(v);
 
-                //     // console.log('redisClient', Object.values(obj))
-                //     // console.log('redisClient', Object.values(obj)[0])
-                //     // console.log('redisClient deviceId', obj[0].deviceId)
-                // }
+                    // })
+
+                    // console.log('redisClient', Object.values(obj))
+                    // console.log('redisClient', Object.values(obj)[0])
+                    // console.log('redisClient deviceId', obj[0].deviceId)
+                }
             })
         })
 
