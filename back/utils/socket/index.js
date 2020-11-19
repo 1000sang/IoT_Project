@@ -1,27 +1,18 @@
 const socketIo = require('socket.io');
+const redisClient = require('../redis');
 const axios = require('axios');
 
-module.exports = (server, app, sessionMiddleware) => {
+module.exports = (server, app) => {
     const io = socketIo(server, { origin: '*:*' });
     app.set('io', io);
     const device = io.of('/device');
 
-    // const sessionStore = new sessionMiddleware();
-
-    io.use((socket, next) => {
-        try {
-            sessionMiddleware(socket.request);
-        } catch (err) {
-            console.log(err);
-            next(err);
-        }
-    });
-
     device.on('connection', (socket) => {
         console.log('device 네임스페이스 접속');
         socket.on('login', (data) => {
-            console.log('login')
             console.log('login data', data)
+            const result = redisClient.hgetall(`${data.userId}/device`)
+            console.log('redisClient', result)
         })
         // const req = socket.request;
         // const { headers: { referer } } = req;

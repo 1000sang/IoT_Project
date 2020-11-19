@@ -98,4 +98,4 @@ const server = http.listen(3065, () => {
     console.log('connected')
 });
 
-webSocket(server, app, sessionMiddleware);
+webSocket(server, app);
