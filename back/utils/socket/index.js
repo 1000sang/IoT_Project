@@ -12,9 +12,9 @@ const mqttOptions = {
     protocol: 'mqtt'
 }
 
-client.on('message', function (topic, message) {
-    console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
-})
+// client.on('message', function (topic, message) {
+//     console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
+// })
 
 module.exports = (server, app) => {
     const io = socketIo(server, { origin: '*:*' });
