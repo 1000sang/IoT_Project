@@ -10,6 +10,7 @@ exports.getSocket = async (req, res, next) => {
 
 exports.createSocketRoom = async (req, res, next) => {
     try {
+        console.log('createSocketRoom')
         console.log(req.body)
         const payload = {
             userId: req,
