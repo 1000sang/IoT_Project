@@ -6,11 +6,22 @@ module.exports = (server, app, sessionMiddleware) => {
     app.set('io', io);
     const device = io.of('/device');
 
+    io.use((socket, next) => {
+        try {
+            sessionMiddleware(socket.request);
+        } catch (err) {
+            console.log(err);
+            next(err);
+        }
+    });
+
     device.on('connection', (socket) => {
         console.log('device 네임스페이스 접속');
-        console.log('socket', socket)
-        console.log('')
-        console.log('socket request', socket.request)
+        const req = socket.request;
+        const { headers: { referer } } = req;
+        const roomId = referer.split('/')[referer.split('/'.length - 1)].replace(/\?.+/, '');
+        console.log('roomId', roomId);
+        console.log('req.session', req.session)
         socket.on('disconnect', () => {
             console.log('device 네임스페이스 접속 해제');
         })
