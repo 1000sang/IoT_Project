@@ -12,8 +12,8 @@ module.exports = (server, app) => {
         socket.on('login', (data) => {
             console.log('login data', data)
             redisClient.hgetall(`${data.userId}/device`, (err, obj) => {
-                console.log('redisClient', obj[0])
-                console.log('redisClient deviceId', obj[0].deviceId)
+                console.log('redisClient', Object.values(obj))
+                // console.log('redisClient deviceId', obj[0].deviceId)
             })
         })
         // const req = socket.request;
