@@ -12,9 +12,21 @@ exports.createSocketRoom = async (req, res, next) => {
     try {
         console.log('createSocketRoom')
         console.log(req.body)
-        const payload = {
-            userId: req,
-        }
+        // const payload = {
+        //     userId: req,
+        // }
+        const socket = req.app.get('io');
+
+        socket.device.on('connection', (socket) => {
+            console.log('device 네임스페이스 접속');
+            console.log('socket', socket)
+            console.log('')
+            console.log('socket request', socket.request)
+            socket.on('disconnect', () => {
+                console.log('device 네임스페이스 접속 해제');
+            })
+        })
+
         // console.log('createSocketRoom userId param', payload);
 
         // const createRoom = await socketService.createRoom(payload);
