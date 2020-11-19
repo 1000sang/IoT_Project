@@ -4,17 +4,17 @@ const axios = require('axios');
 module.exports = (server, app, sessionMiddleware) => {
     const io = socketIo(server, { origin: '*:*' });
     app.set('io', io);
-    // const device = io.of('/device');
+    const device = io.of('/device');
 
-    // device.on('connection', (socket) => {
-    //     console.log('device 네임스페이스 접속');
-    //     console.log('socket', socket)
-    //     console.log('')
-    //     console.log('socket request', socket.request)
-    //     socket.on('disconnect', () => {
-    //         console.log('device 네임스페이스 접속 해제');
-    //     })
-    // })
+    device.on('connection', (socket) => {
+        console.log('device 네임스페이스 접속');
+        console.log('socket', socket)
+        console.log('')
+        console.log('socket request', socket.request)
+        socket.on('disconnect', () => {
+            console.log('device 네임스페이스 접속 해제');
+        })
+    })
 
     // io.use((socket, next) => {
     //     try {
