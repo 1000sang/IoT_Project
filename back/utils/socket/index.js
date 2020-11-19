@@ -24,7 +24,7 @@ module.exports = (server, app) => {
     const deviceRoom = io.of('/deviceRoom');
 
     mqttClient.on('connect', () => {
-        console.log('connected : ' + client.connected)
+        console.log('connected : ' + mqttClient.connected)
     })
 
     mqttClient.on('error', (err) => {
