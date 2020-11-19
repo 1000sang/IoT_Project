@@ -15,9 +15,9 @@ exports.createSocketRoom = async (req, res, next) => {
         // const payload = {
         //     userId: req,
         // }
-        const socket = req.app.get('io');
+        const io = req.app.get('io');
 
-        const device = socket.of('/device');
+        const device = io.of('/device');
         device.on('connect', (socket) => {
             console.log('device 네임스페이스 접속')
             socket.on('disconnect', () => {
