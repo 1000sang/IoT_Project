@@ -10,15 +10,16 @@ exports.getSocket = async (req, res, next) => {
 
 exports.createSocketRoom = async (req, res, next) => {
     try {
+        console.log(req.body)
         const payload = {
-            userId: req.params.userId,
+            userId: req,
         }
-        console.log('createSocketRoom userId param', payload);
+        // console.log('createSocketRoom userId param', payload);
 
-        const createRoom = await socketService.createRoom(payload);
+        // const createRoom = await socketService.createRoom(payload);
 
-        const createSite = await siteService.createSite(payload);
-        res.status(200).send(createSite);
+        // const createSite = await siteService.createSite(payload);
+        res.status(200).send('createSocketRoom oK');
     } catch (err) {
         next(err)
     }

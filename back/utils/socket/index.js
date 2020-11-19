@@ -4,6 +4,14 @@ const axios = require('axios');
 module.exports = (server, app, sessionMiddleware) => {
     const io = socketIo(server, { origin: '*:*' });
     app.set('io', io);
+    const device = io.of('/device');
+
+    device.on('connection', (socket) => {
+        console.log('device 네임스페이스 접속');
+        socket.on('disconnect', () => {
+            console.log('device 네임스페이스 접속 해제');
+        })
+    })
 
     // io.use((socket, next) => {
     //     try {
