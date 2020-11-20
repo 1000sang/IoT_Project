@@ -32,18 +32,6 @@ const mqttOptions = {
 
 const mqttClient = mqtt.connect(mqttOptions);
 
-mqttClient.on('connect', () => {
-    console.log('mqtt connected : ' + mqttClient.connected)
-})
-
-mqttClient.on('error', (err) => {
-    console.log(err)
-})
-
-mqttClient.on('message', function (topic, message) {
-    console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
-})
-
 const sessionMiddleware = session({
     store: new RedisStore({
         client: redisClient,
@@ -86,6 +74,18 @@ db.sequelize.sync()
         console.log('db 연결 성공 ')
     })
     .catch(console.error);
+
+mqttClient.on('connect', () => {
+    console.log('mqtt connected : ' + mqttClient.connected)
+})
+
+mqttClient.on('error', (err) => {
+    console.log(err)
+})
+
+mqttClient.on('message', function (topic, message) {
+    console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
+})
 
 app.use('/', routers);
 app.use(function (err, req, res, next) {
