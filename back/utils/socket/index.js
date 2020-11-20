@@ -36,39 +36,39 @@ module.exports = (server, app) => {
         let devices = null;
         let topics = null;
 
-        socket.on('login', (data) => {
-            console.log('login data', data)
+        // socket.on('login', (data) => {
+        //     console.log('login data', data)
 
-            redisClient.hgetall(`${data.userId}/device`, (err, obj) => {
-                if (err) {
-                    console.log('hgetall err', err)
-                    return;
-                }
+        //     redisClient.hgetall(`${data.userId}/device`, (err, obj) => {
+        //         if (err) {
+        //             console.log('hgetall err', err)
+        //             return;
+        //         }
 
-                if (obj) {
-                    devices = Object.keys(obj);
-                    topics = Object.values(obj);
+        //         if (obj) {
+        //             devices = Object.keys(obj);
+        //             topics = Object.values(obj);
 
-                    devices.map((v) => {
-                        socket.join(v);
-                        console.log(`${v} 룸이 생성되었습니다.`);
-                        socket.to(`${v}`).emit(`${v}`, {
-                            msg: `${v}루에 입장하셧습니다.`
-                        })
-                    })
+        //             devices.map((v) => {
+        //                 socket.join(v);
+        //                 console.log(`${v} 룸이 생성되었습니다.`);
+        //                 socket.to(`${v}`).emit(`${v}`, {
+        //                     msg: `${v}루에 입장하셧습니다.`
+        //                 })
+        //             })
 
-                    topics.map((v, i) => {
-                        console.log(v)
-                        // mqttClient.subscribe(v);
+        //             topics.map((v, i) => {
+        //                 console.log(v)
+        //                 // mqttClient.subscribe(v);
 
-                    })
+        //             })
 
-                    // console.log('redisClient', Object.values(obj))
-                    // console.log('redisClient', Object.values(obj)[0])
-                    // console.log('redisClient deviceId', obj[0].deviceId)
-                }
-            })
-        })
+        //             // console.log('redisClient', Object.values(obj))
+        //             // console.log('redisClient', Object.values(obj)[0])
+        //             // console.log('redisClient deviceId', obj[0].deviceId)
+        //         }
+        //     })
+        // })
 
         socket.on('disconnect', () => {
             console.log('device 네임스페이스 접속 해제');

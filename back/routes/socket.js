@@ -5,6 +5,6 @@ const { isLoggedIn, isNotLoggedIn } = require('../utils/passport/confirmLogin');
 const socketController = require('../controllers/socket');
 
 router.get('/', socketController.getSocket)
-router.post('/', socketController.createSocketRoom);
+router.post('/room/:userId', socketController.createSocketRoom);
 
 module.exports = router;
