@@ -16,7 +16,7 @@ const mqttClient = mqtt.connect(mqttOptions);
 
 
 mqttClient.on('connect', () => {
-    console.log('connected : ' + mqttClient.connected)
+    console.log('mqtt connected : ' + mqttClient.connected)
 })
 
 mqttClient.on('error', (err) => {
