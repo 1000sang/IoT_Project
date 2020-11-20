@@ -40,13 +40,9 @@ exports.createSocketRoom = async (req, res, next) => {
 
                     mqttClient.subscribe(`${v}`)
                     // socket.join(v);
-
                 })
 
-
-
                 io.of('/deviceRoom').emit('newRoom', room);
-
 
                 // devices.map((v) => {
                 //     socket.join(v);
