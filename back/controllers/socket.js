@@ -20,11 +20,13 @@ exports.createSocketRoom = async (req, res, next) => {
         const io = req.app.get('io');
 
         redisClient.hgetall(`${req.params.userId}/device`, (err, obj) => {
+            console.log('obj', obj)
             if (err) {
                 console.log('hgetall err', err)
                 next(err);
             }
             if (obj) {
+                console.log('ass')
                 room = {
                     userId: req.params.userId,
                     deviceIds: Object.keys(obj),
