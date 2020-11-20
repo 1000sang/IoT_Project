@@ -45,7 +45,7 @@ module.exports = (server, app) => {
         deviceRoom.emit(`${topic}`, {
             message: message.toString()
         })
-        console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
+        console.log(`토픽:${topic.toString()},메세지: ${message.toJSON()}`)
     })
 }
 
