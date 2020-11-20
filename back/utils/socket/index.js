@@ -11,9 +11,7 @@ const mqttOptions = {
     protocol: 'mqtt'
 }
 
-console.log('mqtt host', process.env.MQTT_HOST)
 const mqttClient = mqtt.connect(mqttOptions);
-
 
 mqttClient.on('connect', () => {
     console.log('mqtt connected : ' + mqttClient.connected)
@@ -21,10 +19,6 @@ mqttClient.on('connect', () => {
 
 mqttClient.on('error', (err) => {
     console.log(err)
-})
-
-mqttClient.on('message', function (topic, message) {
-    console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
 })
 
 module.exports = (server, app) => {
@@ -39,6 +33,10 @@ module.exports = (server, app) => {
         socket.on('disconnect', () => {
             console.log('device 네임스페이스 접속 해제');
         })
+    })
+
+    mqttClient.on('message', function (topic, message) {
+        console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
     })
 }
 
