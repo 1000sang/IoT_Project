@@ -27,8 +27,8 @@ exports.createSocketRoom = async (req, res, next) => {
                 next(err);
             }
             if (obj) {
-                room.deviceIds = Object.keys(obj)
-                room.topics = Object.values(obj)
+                room[deviceIds] = Object.keys(obj)
+                room[topics] = Object.values(obj)
 
                 // devices.map((v) => {
                 //     socket.join(v);
