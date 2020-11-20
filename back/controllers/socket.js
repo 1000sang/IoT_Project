@@ -34,7 +34,10 @@ exports.createSocketRoom = async (req, res, next) => {
                 }
                 console.log('room', room)
 
+
+
                 io.of('/deviceRoom').emit('newRoom', room);
+
 
                 // devices.map((v) => {
                 //     socket.join(v);
