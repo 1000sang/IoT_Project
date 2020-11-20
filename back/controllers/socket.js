@@ -18,7 +18,7 @@ exports.createSocketRoom = async (req, res, next) => {
         let room = null;
 
         const io = req.app.get('io');
-        const mqttClient = req.app.get('matt');
+        const mqttClient = req.app.get('mqtt');
 
         redisClient.hgetall(`${req.params.userId}/device`, (err, obj) => {
             console.log('obj', obj)
