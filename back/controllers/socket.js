@@ -37,8 +37,6 @@ exports.createSocketRoom = async (req, res, next) => {
             }
         })
 
-        const newRoom = await room.save();
-
         io.of('/deviceRoom').emit('newRoom', newRoom);
         res.status(200).send('createSocketRoom oK');
     } catch (err) {
