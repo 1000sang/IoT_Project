@@ -18,6 +18,7 @@ exports.createSocketRoom = async (req, res, next) => {
         let room = null;
 
         const io = req.app.get('io');
+        const mqttClient = req.app.get('matt');
 
         redisClient.hgetall(`${req.params.userId}/device`, (err, obj) => {
             console.log('obj', obj)
@@ -33,6 +34,14 @@ exports.createSocketRoom = async (req, res, next) => {
                     topics: Object.values(obj)
                 }
                 console.log('room', room)
+
+                topics.map((v) => {
+                    console.log('topics', v);
+
+                    mqttClient.subscribe(`${v}`)
+                    // socket.join(v);
+
+                })
 
 
 
