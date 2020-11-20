@@ -1,5 +1,4 @@
 const socketIo = require('socket.io');
-const redisClient = require('../redis');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const mqtt = require('mqtt');

@@ -1,4 +1,6 @@
 const socketService = require('../service/socket');
+const redisClient = require('../utils/redis');
+const socket = require('../utils/socket');
 
 exports.getSocket = async (req, res, next) => {
     console.log('getSocket API')
@@ -13,8 +15,34 @@ exports.createSocketRoom = async (req, res, next) => {
         console.log('createSocketRoom')
         console.log(req.params.userId)
 
+        let room = {
+            userId: req.params.userId
+        }
+
+        const io = req.app.get('io');
+
+        redisClient.hgetall(`${payload.userId}/device`, (err, obj) => {
+            if (err) {
+                console.log('hgetall err', err)
+                next(err);
+            }
+            if (obj) {
+                room.deviceIds = Object.keys(obj)
+                room.topics = Object.values(obj)
+
+                // devices.map((v) => {
+                //     socket.join(v);
+
+                // })
+            }
+        })
+
+        const newRoom = await room.save();
+
+        io.of('/deviceRoom').emit('newRoom', newRoom);
         res.status(200).send('createSocketRoom oK');
     } catch (err) {
+        console.log(err)
         next(err)
     }
 }
