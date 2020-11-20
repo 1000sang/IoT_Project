@@ -49,21 +49,19 @@ module.exports = (server, app) => {
                     devices = Object.keys(obj);
                     topics = Object.values(obj);
 
-                    console.log('devices', devices)
-                    console.log('topics', topics)
-                    // devices.map((v) => {
-                    //     socket.join(v);
-                    //     console.log(`${v} 룸이 생성되었습니다.`);
-                    //     socket.to(`${v}`).emit('join', {
-                    //         msg: `${v}루에 입장하셧습니다.`
-                    //     })
-                    // })
+                    devices.map((v) => {
+                        socket.join(v);
+                        console.log(`${v} 룸이 생성되었습니다.`);
+                        socket.to(`${v}`).emit(`${v}`, {
+                            msg: `${v}루에 입장하셧습니다.`
+                        })
+                    })
 
-                    // topics.map((v, i) => {
-                    //     console.log(v)
-                    //     // mqttClient.subscribe(v);
+                    topics.map((v, i) => {
+                        console.log(v)
+                        // mqttClient.subscribe(v);
 
-                    // })
+                    })
 
                     // console.log('redisClient', Object.values(obj))
                     // console.log('redisClient', Object.values(obj)[0])
