@@ -16,21 +16,12 @@ const routers = require('./routes');
 const db = require('./models');
 const passportConfig = require('./utils/passport');
 const errMsg = require('./utils/error/errorMessage');
-const mqtt = require('mqtt');
 const webSocket = require('./utils/socket');
 
 dotenv.config()
 
 
 const app = express();
-
-const mqttOptions = {
-    host: process.env.MQTT_HOST,
-    port: process.env.MQTT_PORT,
-    protocol: 'mqtt'
-}
-
-const mqttClient = mqtt.connect(mqttOptions);
 
 const sessionMiddleware = session({
     store: new RedisStore({
@@ -75,17 +66,6 @@ db.sequelize.sync()
     })
     .catch(console.error);
 
-mqttClient.on('connect', () => {
-    console.log('mqtt connected : ' + mqttClient.connected)
-})
-
-mqttClient.on('error', (err) => {
-    console.log(err)
-})
-mqttClient.subscribe('DHT11');
-mqttClient.on('message', function (topic, message) {
-    console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
-})
 
 app.use('/', routers);
 app.use(function (err, req, res, next) {
