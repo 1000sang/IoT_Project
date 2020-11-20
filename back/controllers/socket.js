@@ -35,7 +35,7 @@ exports.createSocketRoom = async (req, res, next) => {
                 }
                 console.log('room', room)
 
-                topics.map((v) => {
+                room.topics.map((v) => {
                     console.log('topics', v);
 
                     mqttClient.subscribe(`${v}`)
