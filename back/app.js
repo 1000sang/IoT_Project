@@ -14,6 +14,7 @@ const redisClient = require('./utils/redis');
 
 const routers = require('./routes');
 const db = require('./models');
+const mongoDB = require('./utils/mongo');
 const passportConfig = require('./utils/passport');
 const errMsg = require('./utils/error/errorMessage');
 const webSocket = require('./utils/socket');
@@ -59,6 +60,7 @@ app.use(cors({
     origin: true,
     credentials: true,
 }));
+mongoDB();
 
 db.sequelize.sync()
     .then(() => {

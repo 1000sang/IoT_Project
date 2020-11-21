@@ -1,6 +1,6 @@
 const socketService = require('../service/socket');
 const redisClient = require('../utils/redis');
-const socket = require('../utils/socket');
+// const socket = require('../utils/socket');
 
 exports.getSocket = async (req, res, next) => {
     console.log('getSocket API')
@@ -27,7 +27,6 @@ exports.createSocketRoom = async (req, res, next) => {
                 next(err);
             }
             if (obj) {
-                console.log('ass')
                 room = {
                     userId: req.params.userId,
                     deviceIds: Object.keys(obj),
@@ -55,4 +54,10 @@ exports.createSocketRoom = async (req, res, next) => {
         console.log(err)
         next(err)
     }
+}
+
+exports.deleteSocketRoom = async (req, res, next) => {
+    // try{
+
+    // }
 }

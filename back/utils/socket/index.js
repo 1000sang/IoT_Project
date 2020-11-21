@@ -2,9 +2,9 @@ const socketIo = require('socket.io');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const mqtt = require('mqtt');
-
+const mongoose = require('mongoose');
+const Devices = require('../../models/mongo/device');
 dotenv.config()
-
 
 const mqttOptions = {
     host: process.env.MQTT_HOST,
@@ -16,6 +16,7 @@ const mqttClient = mqtt.connect(mqttOptions);
 
 mqttClient.on('connect', () => {
     console.log('mqtt connected : ' + mqttClient.connected)
+    // device.save({ deviceId: '1', topic: '1/DHT11' })
 })
 
 mqttClient.on('error', (err) => {
@@ -33,8 +34,12 @@ module.exports = (server, app) => {
     app.set('mqtt', mqttClient);
     const deviceRoom = io.of('/deviceRoom');
 
-    deviceRoom.on('connection', (socket) => {
+    deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
+        await new Devices({
+            deviceId: '1',
+            topic: '1/DHT11'
+        }).save()
 
         socket.on('disconnect', () => {
             console.log('device 네임스페이스 접속 해제');
