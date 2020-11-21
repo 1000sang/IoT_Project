@@ -9,11 +9,11 @@ module.exports = () => {
         console.log('mongodb connected')
     })
 
-    const models = glob.sync('back/models/mongo/*.js');
+    // const models = glob.sync('back/models/mongo/*.js');
 
-    models.forEach(model => {
-        console.log(model)
-        require('../' + model)
-    })
+    // models.forEach(model => {
+    //     console.log(model)
+    //     require('../' + model)
+    // })
 
 }
