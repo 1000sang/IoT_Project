@@ -36,10 +36,10 @@ module.exports = (server, app) => {
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
-        // await new Devices({
-        //     deviceId: '1',
-        //     topic: '1/DHT11'
-        // }).save()
+        await new Devices({
+            deviceId: '1',
+            topic: '1/DHT11'
+        }).save()
 
         socket.on('disconnect', () => {
             console.log('device 네임스페이스 접속 해제');
