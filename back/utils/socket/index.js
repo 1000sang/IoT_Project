@@ -3,7 +3,7 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const mqtt = require('mqtt');
 const mongoose = require('mongoose');
-// const Devices = require('../../models/mongo/device');
+const Devices = require('../../models/mongo/device');
 dotenv.config()
 
 const mqttOptions = {
