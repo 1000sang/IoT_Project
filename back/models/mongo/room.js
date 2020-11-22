@@ -7,10 +7,10 @@ const roomSchema = new mongoose.Schema({
         unique: true
     },
     deviceId: {
-        type: String
+        type: Array
     },
     topic: {
-        type: String
+        type: Array
     },
 }, { timestamps: true });
 
