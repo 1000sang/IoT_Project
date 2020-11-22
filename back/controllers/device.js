@@ -16,7 +16,7 @@ exports.getAllHasUser = async (req, res, next) => {
 
         payload.userId = findeOneIdByEmail.userId;
 
-        const getAllDevice = await deviceService.getAllDevice(payload);
+        const getAllDevice = await deviceService.getAllDevice(findeOneIdByEmail.userId);
 
         res.status(200).send(getAllDevice);
     } catch (err) {

@@ -24,14 +24,17 @@ exports.createSocketRoom = async (req, res, next) => {
 
         const findOneUser = await userService.findOneUser(req.params.userId);
 
-        console.log('find', findOneUser.Devices)
-        const payload = {
-            userId: req.params.userId,
-            deviceIds: findOneUser.Devices.deviceId,
-            topics: findOneUser.Devices.topic
-        }
+        const findAllDeviceById = await deviceService.findAllDeviceById(req.params.userId)
 
-        console.log(payload)
+
+        console.log('find', findAllDeviceById)
+        // const payload = {
+        //     userId: req.params.userId,
+        //     deviceIds: findOneUser.Devices.deviceId,
+        //     topics: findOneUser.Devices.topic
+        // }
+
+        // console.log(payload)
 
         // redisClient.hgetall(`${req.params.userId}/device`, (err, obj) => {
         //     console.log('obj', obj)
