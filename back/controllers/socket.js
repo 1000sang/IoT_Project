@@ -1,8 +1,6 @@
-const socketService = require('../service/socket');
-const redisClient = require('../utils/redis');
 const Room = require('../models/mongo/room');
 const userService = require('../service/user');
-const deviceService = require('../service/device')
+
 
 // const socket = require('../utils/socket');
 
@@ -31,6 +29,7 @@ exports.createSocketRoom = async (req, res, next) => {
             console.log('map', v)
             deviceIds.push(v.deviceId);
             topics.push(v.topic)
+            mqttClient.subscribe(`${v.topic}`)
         })
 
         const payload = {
@@ -49,6 +48,7 @@ exports.createSocketRoom = async (req, res, next) => {
 
         const newRoom = await room.save();
         io.of('/deviceRoom').emit('newRoom', newRoom);
+
 
         res.status(200).send('createSocketRoom oK');
     } catch (err) {
