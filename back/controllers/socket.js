@@ -1,5 +1,8 @@
 const socketService = require('../service/socket');
 const redisClient = require('../utils/redis');
+const Room = require('../models/mongo/room');
+const deviceService = require('../service/device')
+
 // const socket = require('../utils/socket');
 
 exports.getSocket = async (req, res, next) => {
@@ -15,10 +18,10 @@ exports.createSocketRoom = async (req, res, next) => {
         console.log('createSocketRoom')
         console.log(req.params.userId)
 
-        let room = null;
-
         const io = req.app.get('io');
         const mqttClient = req.app.get('mqtt');
+
+        let payload = null;
 
         redisClient.hgetall(`${req.params.userId}/device`, (err, obj) => {
             console.log('obj', obj)
@@ -27,28 +30,42 @@ exports.createSocketRoom = async (req, res, next) => {
                 next(err);
             }
             if (obj) {
-                room = {
+                payload = {
                     userId: req.params.userId,
                     deviceIds: Object.keys(obj),
                     topics: Object.values(obj)
                 }
-                console.log('room', room)
+                // console.log('room', room)
 
-                room.topics.map((v) => {
-                    console.log('topics', v);
+                // room.topics.map((v) => {
+                //     console.log('topics', v);
 
-                    mqttClient.subscribe(`${v}`)
-                    // socket.join(v);
-                })
+                //     mqttClient.subscribe(`${v}`)
+                //     // socket.join(v);
+                // })
 
-                io.of('/deviceRoom').emit('newRoom', room);
+                // io.of('/deviceRoom').emit('newRoom', room);
 
                 // devices.map((v) => {
                 //     socket.join(v);
 
                 // })
+            } else {
+                const findAllDeviceById = deviceService.findAllDeviceById(req.params.userId)
+                console.log(findAllDeviceById)
             }
         })
+
+        console.log('payload', payload);
+        const room = new Room({
+            userId: payload.userId,
+            deviceId: payload.deviceId,
+            topic: payload.topic
+        })
+
+        const newRoom = await room.save();
+        io.of('/deviceRoom').emit('newRoom', newRoom);
+
         res.status(200).send('createSocketRoom oK');
     } catch (err) {
         console.log(err)
