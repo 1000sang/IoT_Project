@@ -68,22 +68,8 @@ exports.createSocketRoom = async (req, res, next) => {
         redisClient.set(`roomId/${room.userId}`, `${room._id}`);
 
         const newRoom = await room.save();
+        io.of('/deviceRoom').emit('newRoom', newRoom);
 
-        const deviceRoom = io.of('/deviceRoom');
-
-        deviceRoom.on('connection', async (socket) => {
-            console.log('device 네임스페이스 접속');
-            console.log('socket request ', socket.request.headers)
-
-            socket.on('disconnect', async (reason) => {
-                console.log('device 네임스페이스 접속 해제');
-                //axios delete API
-                // await axios.delete(`/socket/room/${userData.userId}`);
-                // mqttClient.unsubscribe('1/DHT11')
-                // mqttClient.unsubscribe('8/DHT11')
-            })
-        })
-        // io.of('/deviceRoom').emit('newRoom', newRoom);
 
         res.redirect(`/socket/room/${newRoom._id}`)
     } catch (err) {

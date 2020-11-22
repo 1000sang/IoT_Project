@@ -27,8 +27,7 @@ const app = express();
 const sessionMiddleware = session({
     store: new RedisStore({
         client: redisClient,
-        logErrors: true,
-        ttl: 60 * 60
+        logErrors: true
     }),
     saveUninitialized: false,
     resave: false,
@@ -81,4 +80,4 @@ const server = http.listen(3065, () => {
     console.log('connected')
 });
 
-webSocket(server, app);
+webSocket(server, app, sessionMiddleware);
