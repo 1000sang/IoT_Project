@@ -6,6 +6,6 @@ const socketController = require('../controllers/socket');
 
 router.get('/', socketController.getSocket)
 router.post('/room/:userId', socketController.createSocketRoom);
-router.delete('room/:userId', socketController.deleteSocketRoom)
+router.delete('/room/:userId', socketController.deleteSocketRoom)
 
 module.exports = router;
