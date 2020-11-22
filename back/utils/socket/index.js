@@ -35,6 +35,7 @@ module.exports = (server, app, sessionMiddleware) => {
     app.set('mqtt', mqttClient);
     const deviceRoom = io.of('/deviceRoom');
     io.use((socket, next) => {
+        console.log('socket.request.res', socket.request.res)
         sessionMiddleware(socket.request, socket.request.res, next)
     })
 
