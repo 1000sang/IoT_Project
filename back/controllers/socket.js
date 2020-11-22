@@ -50,7 +50,7 @@ exports.createSocketRoom = async (req, res, next) => {
         io.of('/deviceRoom').emit('newRoom', newRoom);
 
 
-        res.redirect(`/dashboard?id=${newRoom._id}`)
+        res.redirect(`/dashboard/${newRoom._id}`)
     } catch (err) {
         console.log(err)
         next(err)
