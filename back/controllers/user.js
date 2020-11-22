@@ -55,7 +55,7 @@ exports.login = async (req, res, next) => {
             }
 
             const findOneUser = await userService.findOneUser(user.userId);
-            await redisService.setRedisUsersDevices(findOneUser.userId, findOneUser.Devices);
+            // await redisService.setRedisUsersDevices(findOneUser.userId, findOneUser.Devices);
 
             return res.status(200).send(findOneUser);
         })

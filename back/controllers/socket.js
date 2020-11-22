@@ -1,6 +1,7 @@
 const socketService = require('../service/socket');
 const redisClient = require('../utils/redis');
 const Room = require('../models/mongo/room');
+const userService = require('../service/user');
 const deviceService = require('../service/device')
 
 // const socket = require('../utils/socket');
@@ -21,50 +22,58 @@ exports.createSocketRoom = async (req, res, next) => {
         const io = req.app.get('io');
         const mqttClient = req.app.get('mqtt');
 
-        let payload = {};
+        const findOneUser = await userService.findOneUser(req.params.userId);
 
-        redisClient.hgetall(`${req.params.userId}/device`, (err, obj) => {
-            console.log('obj', obj)
-            if (err) {
-                console.log('hgetall err', err)
-                next(err);
-            }
-            if (obj) {
-                console.log('obj')
-                payload.userId = req.params.userId;
-                payload.deviceIds = Object.keys(obj);
-                payload.topics = Object.values(obj)
+        const payload = {
+            userId: req.params.userId,
+            deviceIds: findOneUser.Devices.deviceId,
+            topics: findOneUser.Devices.topic
+        }
 
-                // console.log('room', room)
+        console.log(payload)
 
-                // room.topics.map((v) => {
-                //     console.log('topics', v);
+        // redisClient.hgetall(`${req.params.userId}/device`, (err, obj) => {
+        //     console.log('obj', obj)
+        //     if (err) {
+        //         console.log('hgetall err', err)
+        //         next(err);
+        //     }
+        //     if (obj) {
+        //         console.log('obj')
+        //         payload.userId = req.params.userId;
+        //         payload.deviceIds = Object.keys(obj);
+        //         payload.topics = Object.values(obj)
 
-                //     mqttClient.subscribe(`${v}`)
-                //     // socket.join(v);
-                // })
+        //         // console.log('room', room)
 
-                // io.of('/deviceRoom').emit('newRoom', room);
+        //         // room.topics.map((v) => {
+        //         //     console.log('topics', v);
 
-                // devices.map((v) => {
-                //     socket.join(v);
+        //         //     mqttClient.subscribe(`${v}`)
+        //         //     // socket.join(v);
+        //         // })
 
-                // })
-            } else {
-                const findAllDeviceById = deviceService.findAllDeviceById(req.params.userId)
-                console.log(findAllDeviceById)
-            }
-        })
+        //         // io.of('/deviceRoom').emit('newRoom', room);
 
-        console.log('payload', payload);
-        const room = new Room({
-            userId: payload.userId,
-            deviceId: payload.deviceId,
-            topic: payload.topic
-        })
+        //         // devices.map((v) => {
+        //         //     socket.join(v);
 
-        const newRoom = await room.save();
-        io.of('/deviceRoom').emit('newRoom', newRoom);
+        //         // })
+        //     } else {
+        //         const findAllDeviceById = deviceService.findAllDeviceById(req.params.userId)
+        //         console.log(findAllDeviceById)
+        //     }
+        // })
+
+        // console.log('payload', payload);
+        // const room = new Room({
+        //     userId: payload.userId,
+        //     deviceId: payload.deviceId,
+        //     topic: payload.topic
+        // })
+
+        // const newRoom = await room.save();
+        // io.of('/deviceRoom').emit('newRoom', newRoom);
 
         res.status(200).send('createSocketRoom oK');
     } catch (err) {
