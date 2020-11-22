@@ -37,9 +37,11 @@ module.exports = (server, app) => {
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
 
-        socket.on('disconnect', () => {
+        socket.on('disconnect', async (reason) => {
             console.log('device 네임스페이스 접속 해제');
+            console.log(reason)
             //axios delete API
+            await axios.delete(`/socket/room/${userData.userId}`);
             // mqttClient.unsubscribe('1/DHT11')
             // mqttClient.unsubscribe('8/DHT11')
         })
