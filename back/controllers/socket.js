@@ -1,4 +1,5 @@
 const Room = require('../models/mongo/room');
+const Device = require('../models/mongo/device');
 const userService = require('../service/user');
 
 
@@ -26,7 +27,6 @@ exports.createSocketRoom = async (req, res, next) => {
         const findOneUser = await userService.findOneUser(req.params.userId);
 
         await findOneUser.Devices.map((v) => {
-            console.log('map', v)
             deviceIds.push(v.deviceId);
             topics.push(v.topic)
             mqttClient.subscribe(`${v.topic}`)

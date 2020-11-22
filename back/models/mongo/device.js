@@ -9,6 +9,9 @@ const deviceSchema = new mongoose.Schema({
     topic: {
         type: String,
         required: true
+    },
+    connected: {
+        type: Number
     }
 }, { timestamps: false });
 
