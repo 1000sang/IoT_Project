@@ -5,6 +5,7 @@ const { isLoggedIn, isNotLoggedIn } = require('../utils/passport/confirmLogin');
 const socketController = require('../controllers/socket');
 
 router.get('/', socketController.getSocket);
+router.get('/room/:id', socketController.createRoom)
 router.post('/room/:userId', socketController.createSocketRoom);
 router.delete('/room/:userId', socketController.deleteSocketRoom);
 

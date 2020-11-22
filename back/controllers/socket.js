@@ -13,6 +13,23 @@ exports.getSocket = async (req, res, next) => {
     return res.send('a')
 }
 
+exports.createRoom = async (req, res, next) => {
+    try {
+        const room = await Room.findOne({ _id: req.params.id });
+        const io = req.app.get('io');
+
+        if (!room) {
+            console.log('room이 없습니다.')
+        }
+
+        res.send('createRoom OK')
+
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 exports.createSocketRoom = async (req, res, next) => {
     try {
         console.log('createSocketRoom')
@@ -50,7 +67,7 @@ exports.createSocketRoom = async (req, res, next) => {
         io.of('/deviceRoom').emit('newRoom', newRoom);
 
 
-        res.redirect(`/dashboard/${newRoom._id}`)
+        res.redirect(`/socket/room/${newRoom._id}`)
     } catch (err) {
         console.log(err)
         next(err)
