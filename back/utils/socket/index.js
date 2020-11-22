@@ -36,7 +36,7 @@ module.exports = (server, app) => {
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
-        console.log('socket request ', socket.request)
+        console.log('socket request ', socket.request.headers)
 
         socket.on('disconnect', async (reason) => {
             console.log('device 네임스페이스 접속 해제');

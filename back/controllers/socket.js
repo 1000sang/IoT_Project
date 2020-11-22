@@ -1,6 +1,7 @@
 const Room = require('../models/mongo/room');
 const Device = require('../models/mongo/device');
 const userService = require('../service/user');
+const redisClient = require('../utils/redis');
 
 
 // const socket = require('../utils/socket');
@@ -21,6 +22,8 @@ exports.createRoom = async (req, res, next) => {
         if (!room) {
             console.log('room이 없습니다.')
         }
+
+        console.log('sakdjfadkjf')
 
         res.send('createRoom OK')
 
@@ -61,6 +64,13 @@ exports.createSocketRoom = async (req, res, next) => {
             userId: payload.userId,
             deviceId: payload.deviceIds,
             topic: payload.topics
+        })
+
+        //redis에다 키는 userId고 벨류는 room _id넣음
+        redisClient.set(`roomId/${room.userId}`, `${room._id}`);
+
+        redisClient.get(`roomId/${room.userId}`, (err, reply) => {
+            console.log(reply)
         })
 
         const newRoom = await room.save();
