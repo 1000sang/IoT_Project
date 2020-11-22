@@ -37,6 +37,7 @@ exports.createSocketRoom = async (req, res, next) => {
     try {
         console.log('createSocketRoom')
         console.log(req.params.userId)
+        console.log(req.sessionID)
 
         const io = req.app.get('io');
         const mqttClient = req.app.get('mqtt');
