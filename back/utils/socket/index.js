@@ -32,20 +32,20 @@ module.exports = (server, app) => {
 
     app.set('io', io);
     app.set('mqtt', mqttClient);
-    const deviceRoom = io.of('/deviceRoom');
+    // const deviceRoom = io.of('/deviceRoom');
 
-    deviceRoom.on('connection', async (socket) => {
-        console.log('device 네임스페이스 접속');
-        console.log('socket request ', socket.request.headers)
+    // deviceRoom.on('connection', async (socket) => {
+    //     console.log('device 네임스페이스 접속');
+    //     console.log('socket request ', socket.request.headers)
 
-        socket.on('disconnect', async (reason) => {
-            console.log('device 네임스페이스 접속 해제');
-            //axios delete API
-            // await axios.delete(`/socket/room/${userData.userId}`);
-            // mqttClient.unsubscribe('1/DHT11')
-            // mqttClient.unsubscribe('8/DHT11')
-        })
-    })
+    //     socket.on('disconnect', async (reason) => {
+    //         console.log('device 네임스페이스 접속 해제');
+    //         //axios delete API
+    //         // await axios.delete(`/socket/room/${userData.userId}`);
+    //         // mqttClient.unsubscribe('1/DHT11')
+    //         // mqttClient.unsubscribe('8/DHT11')
+    //     })
+    // })
     mqttClient.on('message', function (topic, message) {
         deviceRoom.emit(`${topic}`, {
             message: message.toString()
