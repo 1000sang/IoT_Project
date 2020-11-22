@@ -59,6 +59,7 @@ exports.createSocketRoom = async (req, res, next) => {
 
 exports.deleteSocketRoom = async (req, res, next) => {
     // try{
-
+    console.log('delegeRoom')
+    res.status(200).send('dddd')
     // }
 }
