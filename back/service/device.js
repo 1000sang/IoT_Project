@@ -10,6 +10,18 @@ const Errors = (exports.Errors = {
     UnknownError: createError('UnkownError')
 })
 
+exports.findDeviceByUserId = async (userId) => {
+    const result = await UserDevice.findAll({
+        where: { userId: userId }
+    })
+
+    if (!result) {
+        throw new Errors.DeviceIdNotFound()
+    }
+
+    return result
+}
+
 exports.findAllDeviceById = async (userId) => {
     let deviceData = {};
 

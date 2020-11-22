@@ -24,10 +24,10 @@ exports.createSocketRoom = async (req, res, next) => {
 
         const findOneUser = await userService.findOneUser(req.params.userId);
 
-        const findAllDeviceById = await deviceService.findAllDeviceById(req.params.userId)
+        const findDeviceByUserId = await deviceService.findDeviceByUserId(req.params.userId)
 
 
-        console.log('find', findAllDeviceById)
+        console.log('find', findDeviceByUserId)
         // const payload = {
         //     userId: req.params.userId,
         //     deviceIds: findOneUser.Devices.deviceId,
