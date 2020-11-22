@@ -22,8 +22,16 @@ exports.createSocketRoom = async (req, res, next) => {
         const io = req.app.get('io');
         const mqttClient = req.app.get('mqtt');
 
+        let deviceIds = null;
+        let topics = null;
+
         const findOneUser = await userService.findOneUser(req.params.userId);
 
+        findOneUser.Devices.map((v) => {
+            console.log(v)
+            deviceIds.push(v.deviceId);
+            topics.push(v.topic)
+        })
 
         console.log('find', findOneUser.Devices.deviceId)
         const payload = {
