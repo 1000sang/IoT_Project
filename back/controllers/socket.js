@@ -28,16 +28,16 @@ exports.createSocketRoom = async (req, res, next) => {
         const findOneUser = await userService.findOneUser(req.params.userId);
 
         findOneUser.Devices.map((v) => {
-            console.log(v)
+            console.log('map', v)
             deviceIds.push(v.deviceId);
             topics.push(v.topic)
         })
 
-        console.log('find', findOneUser.Devices.deviceId)
+
         const payload = {
             userId: req.params.userId,
-            deviceIds: findOneUser.Devices.deviceId,
-            topics: findOneUser.Devices.topic
+            deviceIds: deviceIds,
+            topics: topics
         }
 
         console.log(payload)
