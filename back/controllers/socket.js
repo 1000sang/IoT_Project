@@ -21,7 +21,7 @@ exports.createSocketRoom = async (req, res, next) => {
         const io = req.app.get('io');
         const mqttClient = req.app.get('mqtt');
 
-        let payload = null;
+        let payload = {};
 
         redisClient.hgetall(`${req.params.userId}/device`, (err, obj) => {
             console.log('obj', obj)
@@ -30,11 +30,11 @@ exports.createSocketRoom = async (req, res, next) => {
                 next(err);
             }
             if (obj) {
-                payload = {
-                    userId: req.params.userId,
-                    deviceIds: Object.keys(obj),
-                    topics: Object.values(obj)
-                }
+                console.log('obj')
+                payload.userId = req.params.userId;
+                payload.deviceIds = Object.keys(obj);
+                payload.topics = Object.values(obj)
+
                 // console.log('room', room)
 
                 // room.topics.map((v) => {
