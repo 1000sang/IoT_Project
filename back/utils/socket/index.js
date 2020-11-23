@@ -42,7 +42,7 @@ module.exports = (server, app) => {
         })
     })
     mqttClient.on('message', function (topic, message) {
-        deviceRoom.emit(`${topic}`, message)
+        deviceRoom.emit(`${topic}`, message.toJSON())
         console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
     })
 }
