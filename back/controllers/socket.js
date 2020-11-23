@@ -65,7 +65,7 @@ exports.createSocketRoom = async (req, res, next) => {
         // redisClient.set(`roomId/${room.userId}`, `${room._id}`);
 
         // const newRoom = await room.save();
-        io.of('/deviceRoom').emit('newRoom', newRoom);
+        io.of('/deviceRoom').emit('newRoom', payload);
 
         res.send('ok')
     } catch (err) {
