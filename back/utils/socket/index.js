@@ -3,7 +3,6 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const mqtt = require('mqtt');
 const mongoose = require('mongoose');
-const { session } = require('passport');
 // const Devices = require('../../models/mongo/device');
 dotenv.config()
 
@@ -28,20 +27,15 @@ mqttClient.on('error', (err) => {
 //     console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
 // })
 
-module.exports = (server, app, sessionMiddleware) => {
+module.exports = (server, app) => {
     const io = socketIo(server, { origin: '*:*' });
 
     app.set('io', io);
     app.set('mqtt', mqttClient);
     const deviceRoom = io.of('/deviceRoom');
-    io.use((socket, next) => {
-        console.log('socket.request.res', socket.request.res)
-        sessionMiddleware(socket.request, socket.request.res, next)
-    })
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
-        console.log('socket request ', socket.request.sessionID)
 
         socket.on('disconnect', async (reason) => {
             console.log('device 네임스페이스 접속 해제');
