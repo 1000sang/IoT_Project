@@ -67,11 +67,6 @@ db.sequelize.sync()
     })
     .catch(console.error);
 
-app.use((req, res, next) => {
-    req.session.test = req.sessionID
-    next();
-})
-
 app.use('/', routers);
 app.use(function (err, req, res, next) {
     console.log('err', err);
