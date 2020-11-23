@@ -46,6 +46,7 @@ exports.createSocketRoom = async (req, res, next) => {
         await findOneUser.Devices.map((v) => {
             deviceIds.push(v.deviceId);
             topics.push(v.topic)
+            mqttClient.subscribe(`${v.topic}`)
         })
 
         const payload = {
