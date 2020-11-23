@@ -16,7 +16,7 @@ const mqttClient = mqtt.connect(mqttOptions);
 
 mqttClient.on('connect', () => {
     console.log('mqtt connected : ' + mqttClient.connected)
-    // device.save({ deviceId: '1', topic: '1/DHT11' })
+    //device DB에 topic 전부 구독
 })
 
 mqttClient.on('error', (err) => {
@@ -43,6 +43,7 @@ module.exports = (server, app) => {
     })
     mqttClient.on('message', function (topic, message) {
         deviceRoom.emit(`${topic}`, {
+            topic: topic.toString(),
             message: message.toString()
         })
         console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
