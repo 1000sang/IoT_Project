@@ -39,10 +39,6 @@ module.exports = (server, app) => {
 
         socket.on('disconnect', async (reason) => {
             console.log('device 네임스페이스 접속 해제');
-            //axios delete API
-            // await axios.delete(`/socket/room/${userData.userId}`);
-            // mqttClient.unsubscribe('1/DHT11')
-            // mqttClient.unsubscribe('8/DHT11')
         })
     })
     mqttClient.on('message', function (topic, message) {

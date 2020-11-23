@@ -12,6 +12,9 @@ const roomSchema = new mongoose.Schema({
     topic: {
         type: Array
     },
+    sessionID: {
+        type: String
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Room', roomSchema);
