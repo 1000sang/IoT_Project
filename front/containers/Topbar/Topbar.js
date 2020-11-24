@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import appActions from '@iso/redux/app/actions';
-import TopbarNotification from './TopbarNotification';
-import TopbarMessage from './TopbarMessage';
 import TopbarSearch from './TopbarSearch';
 import TopbarUser from './TopbarUser';
-import TopbarAddtoCart from './TopbarAddToCart';
 import TopbarWrapper from './Topbar.styles';
+
+import naverBlog from '@iso/assets/images/naverBlog.png';
+import github from '@iso/assets/images/github.png';
 
 const { Header } = Layout;
 const { toggleCollapsed } = appActions;
@@ -41,29 +41,28 @@ class Topbar extends Component {
           </div>
 
           <ul className="isoRight">
-            <li className="isoSearch">
+            {/* <li className="isoSearch">
               <TopbarSearch locale={locale} />
-            </li>
-
-            {/* <li
-              onClick={() => this.setState({ selectedItem: 'notification' })}
-              className="isoNotify"
-            >
-              <TopbarNotification locale={locale} />
-            </li>
-
-            <li
-              onClick={() => this.setState({ selectedItem: 'message' })}
-              className="isoMsg"
-            >
-              <TopbarMessage locale={locale} />
-            </li>
-            <li
-              onClick={() => this.setState({ selectedItem: 'addToCart' })}
-              className="isoCart"
-            >
-              <TopbarAddtoCart url={url} locale={locale} />
             </li> */}
+            <li
+              className="isoUser"
+            >
+              <a href="https://blog.naver.com/cjstkdgml33" target="_blank">
+                <div className="isoImgWrapper">
+                  <img alt="blog" src={naverBlog} />
+                </div>
+              </a>
+            </li>
+
+            <li
+              className="isoUser"
+            >
+              <a href="https://github.com/devfloors/devfloors" target="_blank">
+                <div className="isoImgWrapper">
+                  <img alt="github" src={github} />
+                </div>
+              </a>
+            </li>
 
             <li
               onClick={() => this.setState({ selectedItem: 'user' })}

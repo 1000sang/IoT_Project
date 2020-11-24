@@ -90,9 +90,9 @@ export default [
   //   leftIcon: 'ion-grid',
   // },
   {
-    key: 'devices',
-    label: 'sidebar.devices',
-    leftIcon: 'ion-arrow-graph-up-right',
+    // key: 'devices',
+    // label: 'sidebar.devices',
+    // leftIcon: 'ion-arrow-graph-up-right',
     // children: [
     //   {
     //     key: 'googleChart',

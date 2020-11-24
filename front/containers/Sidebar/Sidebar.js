@@ -112,14 +112,14 @@ export default function Sidebar(props) {
             onOpenChange={onOpenChange}
             className="isoDashboardMenu"
           >
-            {SIDEBAR_MENU_OPTIONS.map(option => (
+            {/* {SIDEBAR_MENU_OPTIONS.map(option => (
               <SidebarMenu
                 key={option.key}
                 item={option}
                 submenuColor={submenuColor}
                 submenuStyle={submenuStyle}
               />
-            ))}
+            ))} */}
           </Menu>
         </Scrollbars>
       </Sider>

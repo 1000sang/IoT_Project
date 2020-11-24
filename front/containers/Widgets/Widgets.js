@@ -24,22 +24,22 @@ export default function () {
 
   let CARD_WIDGET = [
     {
-      // icon: 'ion-android-chat',
-      iconcolor: '#42A5F5',
+      icon: 'ion-bonfire',
+      iconcolor: '#F75D81',
       number: `${temp}`,
       text: '온도',
     },
     {
-      // icon: 'ion-music-note',
-      iconcolor: '#F75D81',
+      icon: 'ion-android-cloud',
+      iconcolor: '#42A5F5',
       number: `${hum}`,
       text: '습도',
     },
     {
-      // icon: 'ion-trophy',
+      icon: 'ion-ios-toggle-outline',
       iconcolor: '#FEAC01',
-      number: 'widget.cardwidget3.number',
-      text: 'widget.cardwidget3.text',
+      number: '',
+      text: null,
     },
   ];
 

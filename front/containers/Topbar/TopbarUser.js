@@ -5,7 +5,7 @@ import authAction from '../../authentication/actions';
 import TopbarDropdownWrapper from './TopbarDropdown.styles';
 
 const { logout } = authAction;
-import userpic from '@iso/assets/images/user1.png';
+import userpic from '@iso/assets/images/devfloor.png';
 
 export default function TopbarUser() {
   const [visible, setVisibility] = React.useState(false);
@@ -16,9 +16,9 @@ export default function TopbarUser() {
 
   const content = (
     <TopbarDropdownWrapper className="isoUserDropdown">
-      <a className="isoDropdownLink">Settings</a>
+      {/* <a className="isoDropdownLink">Settings</a>
       <a className="isoDropdownLink">Feedback</a>
-      <a className="isoDropdownLink">Help</a>
+      <a className="isoDropdownLink">Help</a> */}
       <a className="isoDropdownLink" onClick={() => dispatch(logout())}>
         Logout
       </a>

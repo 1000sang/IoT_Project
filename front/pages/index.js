@@ -8,8 +8,6 @@ import Checkbox from '@iso/components/uielements/checkbox';
 import Button from '@iso/components/uielements/button';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import jwtConfig from '@iso/config/jwt.config';
-import Auth0 from '../authentication/Auth0';
-import FirebaseLogin from '@iso/containers/FirebaseForm/FirebaseForm';
 import authActions from '../authentication/actions';
 import socketActions from '../redux/socket/actions'
 import loadActions from '../redux/load/actions';

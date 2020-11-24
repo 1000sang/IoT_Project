@@ -39,8 +39,6 @@ export default withAuthSync(() => {
         if (userData.userId == data.userId) {
           Object.values(data.topics).map((v) => {
             socketClient.on(`${v}`, (data) => {
-              console.log('asdfas')
-
               switch (JSON.parse(data).dataType) {
                 case 'Temp':
                   dispatch(getTempData(JSON.parse(data).data))
