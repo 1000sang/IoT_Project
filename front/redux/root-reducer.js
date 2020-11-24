@@ -25,6 +25,7 @@ import profile from '@iso/redux/profile/reducer';
 import githubSearch from '@iso/redux/githubSearch/reducers';
 
 import userReducer from './user/reducer';
+import socketReducer from './socket/reducer';
 import loadReducer from './load/reducer';
 
 export default combineReducers({
@@ -53,5 +54,6 @@ export default combineReducers({
   profile,
   githubSearch,
   userReducer,
+  socketReducer,
   loadReducer
 });

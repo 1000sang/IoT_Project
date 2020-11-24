@@ -16,6 +16,7 @@ export default function authReducer(state = initState, action) {
         draft.err = null;
         // draft.userData = action.payload
         Router.replace('/dashboard');
+        // Router.replace(`/dashboard?id=${action.payload.userId}`);
         break;
       case actions.LOGIN_REQUEST_FAILURE:
         // draft.idToken = null;

@@ -18,12 +18,14 @@ import quizSaga from '@iso/redux/quiz/saga';
 import profileSaga from '@iso/redux/profile/saga';
 
 import userSagas from './user/saga';
+import socketSagas from './socket/saga';
 import loadSagas from './load/saga';
 
 export default function* rootSaga(getState) {
   yield all([
     userSagas(),
     authSagas(),
+    socketSagas(),
     loadSagas()
   ]);
 }

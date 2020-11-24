@@ -11,12 +11,14 @@ import jwtConfig from '@iso/config/jwt.config';
 import Auth0 from '../authentication/Auth0';
 import FirebaseLogin from '@iso/containers/FirebaseForm/FirebaseForm';
 import authActions from '../authentication/actions';
+import socketActions from '../redux/socket/actions'
 import loadActions from '../redux/load/actions';
 import SignInStyleWrapper from '../styled/SignIn.styles';
 
 import ConnectedLine from '../containers/ConnectedLine';
 
 const { login } = authActions;
+const { socketConnect } = socketActions;
 const { loadUser, loadData } = loadActions;
 
 export default function SignInPage(props) {
@@ -35,7 +37,8 @@ export default function SignInPage(props) {
 
   // useEffect(() => {
   //   if (userData) {
-  //     alert(JSON.stringify(userData));
+  //     alert(JSON.stringify(userData.userId));
+  //     dispatch(socketConnect(userData));
   //   }
   // }, [userData])
 
@@ -53,6 +56,7 @@ export default function SignInPage(props) {
       }
       dispatch(login(data));
     }
+
   }, [email, password]);
 
   const handleJWTLogin = () => {

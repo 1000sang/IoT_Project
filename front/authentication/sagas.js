@@ -19,9 +19,10 @@ function* loginRequest({ payload }) {
   try {
     const result = yield call(loginAPI, payload);
     const userData = result.data;
+
     yield put(actions.loginRequestSuccess(userData));
-    // yield call(login, userData);
-    // yield call(getSessionAPI);
+
+
   } catch (err) {
     yield put(actions.loginRequestFailure(err.response.data));
   }
