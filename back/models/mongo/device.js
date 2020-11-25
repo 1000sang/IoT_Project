@@ -10,9 +10,6 @@ const deviceSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    connected: {
-        type: Number
-    }
 }, { timestamps: false });
 
 module.exports = mongoose.model('Device', deviceSchema);
