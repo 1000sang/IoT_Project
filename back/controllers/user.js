@@ -63,7 +63,7 @@ exports.login = async (req, res, next) => {
             }
             console.log('login req', req.sessionID)
 
-            return res.status(200).send(findOneUser);
+            return res.status(200).send(payload);
         })
     })(req, res, next);
 }
