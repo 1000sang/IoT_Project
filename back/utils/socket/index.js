@@ -3,7 +3,7 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const mqtt = require('mqtt');
 const mongoose = require('mongoose');
-// const Devices = require('../../models/mongo/device');
+
 dotenv.config()
 
 const mqttOptions = {
@@ -32,10 +32,12 @@ module.exports = (server, app) => {
 
     app.set('io', io);
     app.set('mqtt', mqttClient);
+
     const deviceRoom = io.of('/deviceRoom');
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
+        console.log('deviceRoom onConnection', socket.id)
 
         socket.on('disconnect', async (reason) => {
             console.log('device 네임스페이스 접속 해제');
