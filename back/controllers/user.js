@@ -56,7 +56,12 @@ exports.login = async (req, res, next) => {
 
             const findOneUser = await userService.findOneUser(user.userId);
             // await redisService.setRedisUsersDevices(findOneUser.userId, findOneUser.Devices);
-            console.log('login req', req)
+            const payload = {
+                userId: findOneUser.userId,
+                Devices: findOneUser.Devices,
+                sessionID: req.sessionID
+            }
+            console.log('login req', req.sessionID)
 
             return res.status(200).send(findOneUser);
         })
