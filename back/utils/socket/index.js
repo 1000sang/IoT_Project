@@ -48,7 +48,9 @@ module.exports = (server, app) => {
 
     mqttClient.on('message', function (topic, message) {
         deviceRoom.emit(`${topic}`, message.toString());
-        redisQueue.rpushRedisTopicQueue(message);
+        const data = JSON.parse(message);
+        redisQueue.rpushRedisTopicQueue(data);
+        redisQueue.rpushRedisDataQueue(`${data.topic}`, `${data.data}`);
 
         redis.watch('topic', (err) => {
             if (err) {
@@ -56,7 +58,8 @@ module.exports = (server, app) => {
             }
 
             redis.lpop('topic', (err, arr) => {
-                console.log('redisClient lrange', arr);
+                console.log('redisClient lpop', arr);
+                //mongoDB 저장
             })
         })
 
