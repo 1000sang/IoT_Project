@@ -39,7 +39,6 @@ module.exports = (server, app) => {
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
-        console.log('deviceRoom onConnection', socket.request)
 
         socket.on('disconnect', async (reason) => {
             console.log('device 네임스페이스 접속 해제');
@@ -49,7 +48,7 @@ module.exports = (server, app) => {
     mqttClient.on('message', function (topic, message) {
         deviceRoom.emit(`${topic}`, message.toString());
         const data = JSON.parse(message);
-        redisQueue.rpushRedisTopicQueue(data);
+        redisQueue.rpushRedisTopicQueue(data.topic);
         redisQueue.rpushRedisDataQueue(`${data.topic}`, `${data.data}`);
 
         redis.watch('topic', (err) => {
