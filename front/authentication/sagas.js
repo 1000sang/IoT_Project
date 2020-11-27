@@ -7,6 +7,8 @@ import JwtAuthentication from './jwtAuthentication';
 import actions from './actions';
 import axios from '../pages/api/axios';
 
+import cookie from 'js-cookie';
+
 function loginAPI(payload) {
   return axios.post('/user/login', payload);
 }
@@ -19,6 +21,8 @@ function* loginRequest({ payload }) {
   try {
     const result = yield call(loginAPI, payload);
     const userData = result.data;
+
+    // cookie.set('token', userData.userId, { expires: 1 });
 
     yield put(actions.loginRequestSuccess(userData));
 

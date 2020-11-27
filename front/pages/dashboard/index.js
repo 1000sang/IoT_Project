@@ -22,14 +22,14 @@ export default withAuthSync(() => {
   const [temp, setTempData] = useState('');
   const [hum, setHumData] = useState('');
 
-  useEffect(() => {
-    if (tempData) {
-      setTempData(tempData)
-    }
-    if (humData) {
-      setHumData(humData)
-    }
-  }, [tempData, humData])
+  // useEffect(() => {
+  //   if (tempData) {
+  //     setTempData(tempData)
+  //   }
+  //   if (humData) {
+  //     setHumData(humData)
+  //   }
+  // }, [tempData, humData])
 
   function socketConnect(userData) {
     socketClient.on('connect', async () => {
@@ -58,7 +58,8 @@ export default withAuthSync(() => {
         console.log('접속 해제');
       })
 
-      const result = await axios.post(`/socket/room/${userData.userId}`);
+      const result = await axios.post(`/socket/room`, userData);
+      console.log('userDAta', userData)
     })
   }
   socketConnect(userData);
