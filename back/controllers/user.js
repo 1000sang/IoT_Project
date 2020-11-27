@@ -61,7 +61,6 @@ exports.login = async (req, res, next) => {
                 Devices: findOneUser.Devices,
                 sessionID: req.sessionID
             }
-            console.log('login req', req.sessionID)
 
             return res.status(200).send(payload);
         })
