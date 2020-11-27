@@ -5,7 +5,7 @@ const mqtt = require('mqtt');
 const redisQueue = require('../redis/redisQueue');
 const redis = require('../redis')
 const mongoose = require('mongoose');
-const Device = mongoose.model('Device');
+const Device = require('../../models/mongo/device')
 
 dotenv.config()
 
@@ -61,14 +61,16 @@ module.exports = (server, app) => {
                 // console.log('redisClient lpop', arr);
                 if (arr == '1/DHT11') {
                     console.log('1/DHT11 mongo')
-                    const Device = new Device({
+                    const device = new Device({
                         topic: arr
                     })
+                    console.log('1/DHT11 mongo 끝')
                 } else {
                     console.log('8/DHT11 mongo')
-                    const Device = new Device({
+                    const device = new Device({
                         topic: arr
                     })
+                    console.log('8/DHT11 mongo 끝')
                 }
                 redis.lpop(`${arr}`, (err, arr) => {
                     // console.log('redisClient data lpop', arr);
