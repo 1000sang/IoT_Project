@@ -7,7 +7,7 @@ dotenv.config();
 const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
 
 exports.pushRedisTopicQueue = (message) => {
-    const data = message.toString();
+    const data = JSON.parse(message);
     console.log(data.topic)
 
     // redisClient.rpush('topic', topic);
