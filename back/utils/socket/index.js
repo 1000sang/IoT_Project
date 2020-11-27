@@ -44,16 +44,18 @@ module.exports = (server, app) => {
         socket.on('disconnect', async (reason) => {
             console.log('device 네임스페이스 접속 해제');
         })
-    })
+    });
+
     mqttClient.on('message', function (topic, message) {
         deviceRoom.emit(`${topic}`, message.toString());
-        redis.pushRedisTopicQueue(message);
-        redis.redisClient.watch('topic', (err) => {
+        redisQueue.rpushRedisTopicQueue(message);
+
+        redis.watch('topic', (err) => {
             if (err) {
                 console.log(err);
             }
 
-            redis.lrange('topic', 0, 1, (err, arr) => {
+            redis.lpop('topic', (err, arr) => {
                 console.log('redisClient lrange', arr);
             })
         })
