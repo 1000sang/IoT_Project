@@ -64,12 +64,14 @@ module.exports = (server, app) => {
                     const device = new Device({
                         topic: arr
                     })
+                    await device.save();
                     console.log('1/DHT11 mongo 끝')
                 } else {
                     console.log('8/DHT11 mongo')
                     const device = new Device({
                         topic: arr
                     })
+                    await device.save();
                     console.log('8/DHT11 mongo 끝')
                 }
                 redis.lpop(`${arr}`, (err, arr) => {
