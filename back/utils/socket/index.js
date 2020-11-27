@@ -2,9 +2,10 @@ const socketIo = require('socket.io');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const mqtt = require('mqtt');
-const mongoose = require('mongoose');
 const redisQueue = require('../redis/redisQueue');
 const redis = require('../redis')
+const mongoose = require('mongoose');
+const Device = mongoose.model('Device');
 
 dotenv.config()
 
@@ -56,10 +57,21 @@ module.exports = (server, app) => {
                 console.log(err);
             }
 
-            redis.lpop('topic', (err, arr) => {
-                console.log('redisClient lpop', arr);
+            redis.lpop('topic', async (err, arr) => {
+                // console.log('redisClient lpop', arr);
+                if (arr == '1/DHT11') {
+                    console.log('1/DHT11 mongo')
+                    const Device = new Device({
+                        topic: arr
+                    })
+                } else {
+                    console.log('8/DHT11 mongo')
+                    const Device = new Device({
+                        topic: arr
+                    })
+                }
                 redis.lpop(`${arr}`, (err, arr) => {
-                    console.log('redisClient data lpop', arr);
+                    // console.log('redisClient data lpop', arr);
                     //mongoDB 저장
                 })
 

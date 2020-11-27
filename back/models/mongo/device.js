@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 
 const deviceSchema = new mongoose.Schema({
     deviceId: {
-        type: String,
-        required: true,
-        unique: true
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
     topic: {
         type: String,
