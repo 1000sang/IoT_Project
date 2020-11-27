@@ -58,7 +58,11 @@ module.exports = (server, app) => {
 
             redis.lpop('topic', (err, arr) => {
                 console.log('redisClient lpop', arr);
-                //mongoDB 저장
+                redis.lpop(`${arr}`, (err, arr) => {
+                    console.log('redisClient data lpop', arr);
+                    //mongoDB 저장
+                })
+
             })
         })
 
