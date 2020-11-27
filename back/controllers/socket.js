@@ -41,7 +41,10 @@ exports.createSocketRoom = async (req, res, next) => {
         let deviceIds = [];
         let topics = [];
 
-        const findOneUser = await userService.findOneUser(req.params.userId);
+        const findOneUser = await userService.findOneUser(req.body.userId);
+
+        console.log('socket', findOneUser);
+        console.log('sessionID', req.body.sessionID)
 
         await findOneUser.Devices.map((v) => {
             deviceIds.push(v.deviceId);
@@ -50,7 +53,7 @@ exports.createSocketRoom = async (req, res, next) => {
         })
 
         const payload = {
-            userId: req.params.userId,
+            userId: req.body.userId,
             deviceIds: deviceIds,
             topics: topics
         }
