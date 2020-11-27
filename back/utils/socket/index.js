@@ -62,6 +62,7 @@ module.exports = (server, app) => {
                 if (arr == '1/DHT11') {
                     console.log('1/DHT11 mongo')
                     const device = new Device({
+                        deviceId: '1',
                         topic: arr
                     })
                     await device.save();
@@ -69,6 +70,7 @@ module.exports = (server, app) => {
                 } else {
                     console.log('8/DHT11 mongo')
                     const device = new Device({
+                        deviceId: '2',
                         topic: arr
                     })
                     await device.save();
