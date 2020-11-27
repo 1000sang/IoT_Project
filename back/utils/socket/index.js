@@ -48,7 +48,7 @@ module.exports = (server, app) => {
     mqttClient.on('message', function (topic, message) {
         deviceRoom.emit(`${topic}`, message.toString());
         redis.pushRedisTopicQueue(message);
-        redis.watch('topic', (err) => {
+        redis.redisClient.watch('topic', (err) => {
             if (err) {
                 console.log(err);
             }

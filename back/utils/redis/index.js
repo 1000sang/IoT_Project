@@ -15,4 +15,4 @@ exports.pushRedisDataQueue = (topic, data) => {
     redisClient.rpush(topic, data);
 }
 
-module.exports = redisClient
+exports.redisClient = redisClient
