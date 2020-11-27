@@ -5,7 +5,8 @@ const mqtt = require('mqtt');
 const redisQueue = require('../redis/redisQueue');
 const redis = require('../redis')
 const mongoose = require('mongoose');
-const Device = require('../../models/mongo/device')
+const SensorData = require('../../models/mongo/sensorData');
+const Device = require('../../models/mongo/device');
 
 dotenv.config()
 
@@ -57,28 +58,20 @@ module.exports = (server, app) => {
                 console.log(err);
             }
 
-            redis.lpop('topic', async (err, arr) => {
+            redis.lpop('topic', async (err, topic) => {
                 // console.log('redisClient lpop', arr);
-                if (arr == '1/DHT11') {
-                    console.log('1/DHT11 mongo')
-                    const device = new Device({
-                        deviceId: '1',
-                        topic: arr
-                    })
-                    await device.save();
-                    console.log('1/DHT11 mongo 끝')
-                } else {
-                    console.log('8/DHT11 mongo')
-                    const device = new Device({
-                        deviceId: '2',
-                        topic: arr
-                    })
-                    await device.save();
-                    console.log('8/DHT11 mongo 끝')
-                }
-                redis.lpop(`${arr}`, (err, arr) => {
+
+
+
+                redis.lpop(`${arr}`, async (err, data) => {
                     // console.log('redisClient data lpop', arr);
                     //mongoDB 저장
+                    // const sensorData = new SensorData({
+                    //     topic: topic,
+                    //     data: data
+                    // })
+
+                    // await sensorData.save();
                 })
 
             })

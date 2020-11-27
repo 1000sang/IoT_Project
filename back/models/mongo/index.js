@@ -29,7 +29,7 @@ module.exports = () => {
     });
 
     require('./room');
-    require('./data');
+    require('./sensorData');
     require('./device');
 
     // const models = glob.sync('back/models/mongo/*.js');
