@@ -53,7 +53,7 @@ module.exports = (server, app) => {
                 console.log(err);
             }
 
-            redisClient.lrange('topic', 0, 1, (err, arr) => {
+            redis.lrange('topic', 0, 1, (err, arr) => {
                 console.log('redisClient lrange', arr);
             })
         })
