@@ -10,7 +10,14 @@ exports.pushRedisTopicQueue = (message) => {
     const data = JSON.parse(message);
     console.log(data.topic)
 
-    // redisClient.rpush('topic', topic);
+    redisClient.rpush('topic', data.topic);
+    redisClient.watch('topic', (err) => {
+        if (err) {
+            console.log(err)
+        }
+
+        this.pushRedisDataQueue(data.topic, data.data)
+    })
 };
 
 exports.pushRedisDataQueue = (topic, data) => {
