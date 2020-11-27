@@ -3,6 +3,7 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const mqtt = require('mqtt');
 const mongoose = require('mongoose');
+const redisQueue = require('../redis/redisQueue')
 
 dotenv.config()
 
@@ -37,14 +38,15 @@ module.exports = (server, app) => {
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
-        console.log('deviceRoom onConnection', socket.id)
+        console.log('deviceRoom onConnection', socket.request)
 
         socket.on('disconnect', async (reason) => {
             console.log('device 네임스페이스 접속 해제');
         })
     })
     mqttClient.on('message', function (topic, message) {
-        deviceRoom.emit(`${topic}`, message.toString())
+        deviceRoom.emit(`${topic}`, message.toString());
+        redisQueue.pushRedisTopicQueue(message);
         console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
     })
 }

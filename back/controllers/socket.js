@@ -55,11 +55,12 @@ exports.createSocketRoom = async (req, res, next) => {
         const payload = {
             userId: req.body.userId,
             deviceIds: deviceIds,
-            topics: topics
+            topics: topics,
+            sessionID: req.body.sessionID
         }
 
         // const room = new Room({
-        //     sessionID: payload.sessionId,
+        //     sessionID: payload.sessionID,
         //     userId: payload.userId,
         //     deviceId: payload.deviceIds,
         //     topic: payload.topics
