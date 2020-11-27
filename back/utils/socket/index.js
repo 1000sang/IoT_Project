@@ -3,7 +3,8 @@ const axios = require('axios');
 const dotenv = require('dotenv');
 const mqtt = require('mqtt');
 const mongoose = require('mongoose');
-const redisQueue = require('../redis/redisQueue')
+const redisQueue = require('../redis/redisQueue');
+const redis = require('../redis')
 
 dotenv.config()
 
@@ -47,6 +48,16 @@ module.exports = (server, app) => {
     mqttClient.on('message', function (topic, message) {
         deviceRoom.emit(`${topic}`, message.toString());
         redisQueue.pushRedisTopicQueue(message);
+        redis.watch('topic', (err) => {
+            if (err) {
+                console.log(err);
+            }
+
+            redisClient.lrange('topic', 0, 1, (err, arr) => {
+                console.log('redisClient lrange', arr);
+            })
+        })
+
         console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
     })
 }
