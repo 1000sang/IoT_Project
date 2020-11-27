@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const deviceSchema = new mongoose.Schema({
     deviceId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: string,
         required: true
     },
     topic: {
