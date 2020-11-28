@@ -14,6 +14,7 @@ exports.getSensorData = async (Devices) => {
     try {
         let datas = [];
         let data;
+        console.log('type', typeof (Devices))
         await Devices.map(async (v) => {
             data = await SensorData.findOne({ topic: v.topic }).sort({ createAt: -1 })
             datas.push(data)
