@@ -5,7 +5,7 @@ const redisQueue = require('../redis/redisQueue');
 const redis = require('../redis')
 const SensorData = require('../../models/mongo/sensorData');
 const socketController = require('../../controllers/socket');
-const axios = require('axios');
+const axios = require('../axios');
 
 dotenv.config()
 
