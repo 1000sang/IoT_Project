@@ -29,7 +29,7 @@ mqttClient.on('error', (err) => {
 //     console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
 // })
 
-module.exports = (server, app) => {
+module.exports = async (server, app) => {
     const io = socketIo(server, { origin: '*:*' });
 
     app.set('io', io);
@@ -37,7 +37,8 @@ module.exports = (server, app) => {
 
     const deviceRoom = io.of('/deviceRoom');
 
-    console.log('socketController', socketController.createDeviceRoom)
+    // console.log('socketController', socketController.createDeviceRoom)
+    await socketController.createDeviceRoom();
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
