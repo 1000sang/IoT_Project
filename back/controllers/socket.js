@@ -49,19 +49,8 @@ exports.createSocketRoom = async (req, res, next) => {
 
         for (let i = 0; i < topics.length; i++) {
             let data = await SensorData.findOne({ topic: topics[i] }).sort({ createAt: -1 });
-            console.log('data', data.data)
             datas.push(data.data)
         }
-
-        // const data = await SensorData.findOne({ topic: topics[0] }).sort({ createAt: -1 });
-
-        // console.log('data1:', data)
-
-        // topics.map(async (v) => {
-        //     let data = await SensorData.findOne({ topic: v })
-        //     console.log('data : ', data.data)
-        //     datas.push(data)
-        // })
 
         const payload = {
             userId: req.body.userId,
@@ -71,19 +60,6 @@ exports.createSocketRoom = async (req, res, next) => {
             sessionID: req.body.sessionID
         }
 
-        console.log('payload', payload)
-
-        // const room = new Room({
-        //     sessionID: payload.sessionID,
-        //     userId: payload.userId,
-        //     deviceId: payload.deviceIds,
-        //     topic: payload.topics
-        // })
-
-        //redis에다 키는 userId고 벨류는 room _id넣음
-        // redisClient.set(`roomId/${room.userId}`, `${room._id}`);
-
-        // const newRoom = await room.save();
         io.of('/deviceRoom').emit('newRoom', payload);
 
         res.send('ok')
