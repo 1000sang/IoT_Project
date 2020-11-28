@@ -1,5 +1,6 @@
 const { Device, User, UserDevice } = require('../models');
 const { createError } = require('../utils/error/error');
+const SensorData = require('../models/mongo/sensorData');
 
 const Errors = (exports.Errors = {
     BadDeviceDataError: createError('BadDeviceDataError'),

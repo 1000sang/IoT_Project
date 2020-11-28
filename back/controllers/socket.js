@@ -1,6 +1,5 @@
 const Room = require('../models/mongo/room');
 const userService = require('../service/user');
-const SensorData = require('../models/mongo/sensorData');
 
 exports.getSocket = async (req, res, next) => {
     console.log('getSocket API')

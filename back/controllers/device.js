@@ -2,6 +2,19 @@ const deviceService = require('../service/device');
 const siteService = require('../service/site');
 const userService = require('../service/user');
 const { verifyToken } = require('../utils/token');
+const SensorData = require('../models/mongo/sensorData');
+
+exports.getSensorData = async (req, res, next) => {
+    try {
+        // const payload = {
+        //     topic: req.body.topic
+        // }
+        // const getData = await SensorData.findOne({})
+        console.log(req.body)
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 exports.getAllHasUser = async (req, res, next) => {
     try {
