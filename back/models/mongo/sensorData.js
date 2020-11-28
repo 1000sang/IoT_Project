@@ -9,6 +9,6 @@ const sensorDataSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// sensorDataSchema.index({ "createAt": 1 })
+sensorDataSchema.index({ "createAt": 1 })
 
 module.exports = mongoose.model('SensorData', sensorDataSchema);
