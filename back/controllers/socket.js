@@ -53,7 +53,7 @@ exports.createSocketRoom = async (req, res, next) => {
             console.log('data : ', data)
             datas.push({
                 topic: v,
-                data: data
+                data: data.data
             })
         })
 
