@@ -36,7 +36,11 @@ exports.createRoom = async (req, res, next) => {
 exports.createDeviceRoom = async (req, res, next) => {
     try {
         const findAllDeviceTopic = await deviceService.findAllDeviceTopic();
-        console.log('findAllDeviceTopic', findAllDeviceTopic);
+
+        findAllDeviceTopic.map((v) => {
+            console.log('a')
+            console.log('findAllDeviceTopic', v)
+        })
     } catch (err) {
         console.log(err);
     }
