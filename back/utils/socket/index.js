@@ -34,7 +34,7 @@ module.exports = async (server, app) => {
 
     const findAllDeviceTopic = await deviceService.findAllDeviceTopic();
 
-    findAllDeviceTopic.map((v) => {
+    await findAllDeviceTopic.map((v) => {
         mqttClient.subscribe(`${v.topic}`);
     })
 

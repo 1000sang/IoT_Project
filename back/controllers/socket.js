@@ -46,6 +46,12 @@ exports.createSocketRoom = async (req, res, next) => {
             topics.push(v.topic);
         });
 
+        for (let i = 0; i < topics.length; i++) {
+            let data = await SensorData.findOne({ topic: topics[0] }).sort({ createAt: -1 });
+            console.log('data', data)
+            datas.push(data)
+        }
+
         // const data = await SensorData.findOne({ topic: topics[0] }).sort({ createAt: -1 });
 
         // console.log('data1:', data)
