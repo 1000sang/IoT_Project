@@ -36,6 +36,7 @@ exports.createSocketRoom = async (req, res, next) => {
         let deviceIds = [];
         let topics = [];
         let datas = [];
+        //let deviceName = [];
 
         const findOneUser = await userService.findOneUser(req.body.userId);
 
@@ -46,6 +47,8 @@ exports.createSocketRoom = async (req, res, next) => {
             deviceIds.push(v.deviceId);
             topics.push(v.topic);
         });
+
+        //deviceName 찾는 코드 추가해야함
 
         for (let i = 0; i < topics.length; i++) {
             let data = await SensorData.findOne({ topic: topics[i] }).sort({ createAt: -1 });
@@ -62,7 +65,7 @@ exports.createSocketRoom = async (req, res, next) => {
 
         io.of('/deviceRoom').emit('newRoom', payload);
 
-        res.send('ok')
+        res.send(payload)
     } catch (err) {
         console.log(err)
         next(err)
