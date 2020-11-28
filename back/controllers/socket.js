@@ -29,6 +29,21 @@ exports.createRoom = async (req, res, next) => {
     }
 }
 
+exports.getData = async (topics) => {
+    try {
+        let data;
+        let datas = [];
+        topics.map((v) => {
+            data = await SensorData.findOne({ topic: topics[0] }).sort({ createAt: -1 });
+            datas.push(data)
+        })
+
+        return datas;
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 exports.createSocketRoom = async (req, res, next) => {
     try {
         const io = req.app.get('io');
@@ -51,13 +66,15 @@ exports.createSocketRoom = async (req, res, next) => {
 
         // console.log('data1:', data)
 
-        topics.map(async (v) => {
-            let data = await SensorData.findOne({ topic: v })
-            console.log('data : ', data.data)
-            datas.push(data)
-        })
+        // topics.map(async (v) => {
+        //     let data = await SensorData.findOne({ topic: v })
+        //     console.log('data : ', data.data)
+        //     datas.push(data)
+        // })
 
-        console.log('datas: ', datas)
+        const data = await this.getData(topics);
+
+        console.log('datas: ', data)
 
         const payload = {
             userId: req.body.userId,
