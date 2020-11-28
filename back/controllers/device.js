@@ -10,7 +10,10 @@ exports.getSensorData = async (req, res, next) => {
         //     topic: req.body.topic
         // }
         // const getData = await SensorData.findOne({})
-        console.log(req.body)
+        req.body.Devices.map((v) => {
+            console.log(v.topic)
+        })
+        console.log(req.body.Devices[0])
     } catch (err) {
         console.log(err)
     }
