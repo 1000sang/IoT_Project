@@ -29,21 +29,6 @@ exports.createRoom = async (req, res, next) => {
     }
 }
 
-exports.getData = async (topics) => {
-    try {
-        let data;
-        let datas = [];
-        topics.map((v) => {
-            data = await SensorData.findOne({ topic: topics[0] }).sort({ createAt: -1 });
-            datas.push(data)
-        })
-
-        return datas;
-    } catch (err) {
-        console.log(err)
-    }
-}
-
 exports.createSocketRoom = async (req, res, next) => {
     try {
         const io = req.app.get('io');
@@ -71,8 +56,6 @@ exports.createSocketRoom = async (req, res, next) => {
         //     console.log('data : ', data.data)
         //     datas.push(data)
         // })
-
-        const data = await this.getData(topics);
 
         console.log('datas: ', data)
 
