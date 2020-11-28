@@ -49,6 +49,16 @@ exports.findAllDeviceById = async (userId) => {
     return deviceData;
 }
 
+exports.findAllDeviceTopic = async () => {
+    try {
+        const findAllDeviceTopic = await Device.findAll();
+
+        return findAllDeviceTopic;
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 exports.getAllDevice = async (payload) => {
     try {
         const findAll = await this.findAllDeviceById(payload.userId);

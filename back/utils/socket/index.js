@@ -1,12 +1,9 @@
 const socketIo = require('socket.io');
-const axios = require('axios');
 const dotenv = require('dotenv');
 const mqtt = require('mqtt');
 const redisQueue = require('../redis/redisQueue');
 const redis = require('../redis')
-const mongoose = require('mongoose');
 const SensorData = require('../../models/mongo/sensorData');
-const Device = require('../../models/mongo/device');
 
 dotenv.config()
 
@@ -60,9 +57,6 @@ module.exports = (server, app) => {
 
             redis.lpop('topic', async (err, topic) => {
                 // console.log('redisClient lpop', arr);
-
-
-
                 redis.lpop(`${topic}`, async (err, data) => {
                     // console.log('redisClient data lpop', arr);
                     //mongoDB 저장
@@ -70,7 +64,6 @@ module.exports = (server, app) => {
                         topic: topic,
                         data: data
                     })
-
                     await sensorData.save();
                 })
 

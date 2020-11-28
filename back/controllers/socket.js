@@ -1,7 +1,7 @@
 const Room = require('../models/mongo/room');
 const Device = require('../models/mongo/device');
 const userService = require('../service/user');
-const redisClient = require('../utils/redis');
+const deviceService = require('../service/device');
 
 
 // const socket = require('../utils/socket');
@@ -30,6 +30,15 @@ exports.createRoom = async (req, res, next) => {
 
     } catch (err) {
         console.log(err)
+    }
+}
+
+exports.createDeviceRoom = async (req, res, next) => {
+    try {
+        const findAllDeviceTopic = await deviceService.findAllDeviceTopic();
+        console.log('findAllDeviceTopic', findAllDeviceTopic);
+    } catch (err) {
+        console.log(err);
     }
 }
 
