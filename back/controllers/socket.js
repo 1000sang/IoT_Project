@@ -57,8 +57,6 @@ exports.createSocketRoom = async (req, res, next) => {
         //     datas.push(data)
         // })
 
-        console.log('datas: ', data)
-
         const payload = {
             userId: req.body.userId,
             deviceIds: deviceIds,
