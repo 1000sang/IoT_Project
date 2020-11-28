@@ -39,7 +39,7 @@ exports.createDeviceRoom = async (req, res, next) => {
 
         findAllDeviceTopic.map((v) => {
             console.log('a')
-            console.log('findAllDeviceTopic', v)
+            console.log('findAllDeviceTopic', v.topic)
         })
     } catch (err) {
         console.log(err);
