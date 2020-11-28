@@ -4,6 +4,7 @@ const mqtt = require('mqtt');
 const redisQueue = require('../redis/redisQueue');
 const redis = require('../redis')
 const SensorData = require('../../models/mongo/sensorData');
+const socketController = require('../../controllers/socket');
 
 dotenv.config()
 
@@ -35,6 +36,8 @@ module.exports = (server, app) => {
     app.set('mqtt', mqttClient);
 
     const deviceRoom = io.of('/deviceRoom');
+
+    console.log('socketController', socketController.createDeviceRoom)
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
