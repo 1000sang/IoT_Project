@@ -47,7 +47,7 @@ exports.createSocketRoom = async (req, res, next) => {
             topics.push(v.topic)
         })
 
-        const data = await SensorData.findOne({ topic: v })
+        const data = await SensorData.findOne({ topic: topics[0] })
         console.log('data1:', data)
 
         // await topics.map((v) => {
