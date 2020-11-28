@@ -10,11 +10,11 @@ const Errors = (exports.Errors = {
     UnknownError: createError('UnkownError')
 })
 
-exports.getSensorData = async (data) => {
+exports.getSensorData = async (Devices) => {
     try {
         let datas = [];
         let data;
-        await data.map(async (v) => {
+        await Devices.map(async (v) => {
             data = await SensorData.findOne({ topic: v.topic }).sort({ createAt: -1 })
             datas.push(data)
         })
