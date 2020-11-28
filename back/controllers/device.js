@@ -7,10 +7,6 @@ const SensorData = require('../models/mongo/sensorData');
 exports.getSensorData = async (req, res, next) => {
     try {
         let datas = [];
-        const getSensorData = await deviceService.getSensorData(payload);
-        console.log('getSensorData', getSensorData)
-
-        const getData = await SensorData.findOne({})
         await req.body.Devices.map(async (v) => {
             datas.push(await SensorData.findOne({ topic: v.topic }).sort({ createAt: -1 }))
         })
