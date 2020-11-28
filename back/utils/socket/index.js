@@ -66,12 +66,12 @@ module.exports = (server, app) => {
                 redis.lpop(`${arr}`, async (err, data) => {
                     // console.log('redisClient data lpop', arr);
                     //mongoDB 저장
-                    // const sensorData = new SensorData({
-                    //     topic: topic,
-                    //     data: data
-                    // })
+                    const sensorData = new SensorData({
+                        topic: topic,
+                        data: data
+                    })
 
-                    // await sensorData.save();
+                    await sensorData.save();
                 })
 
             })
