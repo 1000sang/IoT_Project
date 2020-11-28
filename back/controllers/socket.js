@@ -36,11 +36,14 @@ exports.createRoom = async (req, res, next) => {
 exports.createDeviceRoom = async (req, res, next) => {
     try {
         const findAllDeviceTopic = await deviceService.findAllDeviceTopic();
+        const io = req.app.get('io');
+        const mqttClient = req.app.get('mqtt');
 
         findAllDeviceTopic.map((v) => {
-            console.log('a')
-            console.log('findAllDeviceTopic', v.topic)
+            mqttClient.subscribe(`${v.topic}`);
+            io.of('/deviceRoom').join(`${v.topic}`);
         })
+
     } catch (err) {
         console.log(err);
     }

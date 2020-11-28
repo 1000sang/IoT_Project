@@ -5,6 +5,7 @@ const redisQueue = require('../redis/redisQueue');
 const redis = require('../redis')
 const SensorData = require('../../models/mongo/sensorData');
 const socketController = require('../../controllers/socket');
+const axios = require('axios');
 
 dotenv.config()
 
@@ -38,7 +39,8 @@ module.exports = async (server, app) => {
     const deviceRoom = io.of('/deviceRoom');
 
     // console.log('socketController', socketController.createDeviceRoom)
-    await socketController.createDeviceRoom();
+    await axios.post('/socket/room/deviceRoom');
+    // await socketController.createDeviceRoom();
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
