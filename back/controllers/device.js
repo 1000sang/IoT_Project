@@ -6,14 +6,17 @@ const SensorData = require('../models/mongo/sensorData');
 
 exports.getSensorData = async (req, res, next) => {
     try {
-        // const payload = {
-        //     topic: req.body.topic
-        // }
+        const payload = {
+            topic: req.body.Devices
+        }
+        const getSensorData = await deviceService.getSensorData(payload);
+        console.log('getSensorData', getSensorData)
+
         // const getData = await SensorData.findOne({})
-        req.body.Devices.map((v) => {
-            console.log(v.topic)
-        })
-        console.log(req.body.Devices[0])
+        // await req.body.Devices.map((v) => {
+        //     console.log(v.topic)
+        // })
+        // console.log(req.body.Devices[0])
     } catch (err) {
         console.log(err)
     }

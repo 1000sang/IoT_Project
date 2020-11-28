@@ -10,6 +10,20 @@ const Errors = (exports.Errors = {
     UnknownError: createError('UnkownError')
 })
 
+exports.getSensorData = async (data) => {
+    try {
+        let datas = [];
+        let data;
+        await data.map(async (v) => {
+            data = await SensorData.findOne({ topic: v.topic }).sort({ createAt: -1 })
+            datas.push(data)
+        })
+        return datas
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 exports.findDeviceByUserId = async (userId) => {
     const result = await UserDevice.findAll({
         where: { userId: userId }
