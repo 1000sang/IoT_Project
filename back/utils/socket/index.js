@@ -4,8 +4,7 @@ const mqtt = require('mqtt');
 const redisQueue = require('../redis/redisQueue');
 const redis = require('../redis')
 const SensorData = require('../../models/mongo/sensorData');
-const socketController = require('../../controllers/socket');
-const axios = require('../axios');
+const deviceService = require('../../service/device')
 
 dotenv.config()
 
@@ -38,9 +37,13 @@ module.exports = async (server, app) => {
 
     const deviceRoom = io.of('/deviceRoom');
 
-    // console.log('socketController', socketController.createDeviceRoom)
-    await axios.post('/socket/room/deviceRoom');
-    // await socketController.createDeviceRoom();
+    const findAllDeviceTopic = await deviceService.findAllDeviceTopic();
+
+    findAllDeviceTopic.map((v) => {
+        mqttClient.subscribe(`${v.topic}`);
+        deviceRoom.join(`${v.topic}`);
+        console.log('aaa')
+    })
 
     deviceRoom.on('connection', async (socket) => {
         console.log('device 네임스페이스 접속');
