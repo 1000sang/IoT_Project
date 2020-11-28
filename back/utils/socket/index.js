@@ -41,7 +41,7 @@ module.exports = async (server, app) => {
 
     findAllDeviceTopic.map((v) => {
         mqttClient.subscribe(`${v.topic}`);
-        deviceRoom.join(`${v.topic}`);
+        // deviceRoom.join(`${v.topic}`);
         console.log('aaa')
     })
 
