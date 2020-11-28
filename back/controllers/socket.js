@@ -1,10 +1,6 @@
 const Room = require('../models/mongo/room');
-const Device = require('../models/mongo/device');
 const userService = require('../service/user');
-const deviceService = require('../service/device');
-
-
-// const socket = require('../utils/socket');
+const SensorData = require('../models/mongo/sensorData');
 
 exports.getSocket = async (req, res, next) => {
     console.log('getSocket API')
@@ -33,22 +29,6 @@ exports.createRoom = async (req, res, next) => {
     }
 }
 
-exports.createDeviceRoom = async (req, res, next) => {
-    try {
-        const findAllDeviceTopic = await deviceService.findAllDeviceTopic();
-        const io = req.app.get('io');
-        const mqttClient = req.app.get('mqtt');
-
-        findAllDeviceTopic.map((v) => {
-            mqttClient.subscribe(`${v.topic}`);
-            io.of('/deviceRoom').join(`${v.topic}`);
-        })
-
-    } catch (err) {
-        console.log(err);
-    }
-}
-
 exports.createSocketRoom = async (req, res, next) => {
     try {
         const io = req.app.get('io');
@@ -56,6 +36,7 @@ exports.createSocketRoom = async (req, res, next) => {
 
         let deviceIds = [];
         let topics = [];
+        let datas = [];
 
         const findOneUser = await userService.findOneUser(req.body.userId);
 
@@ -65,8 +46,16 @@ exports.createSocketRoom = async (req, res, next) => {
         await findOneUser.Devices.map((v) => {
             deviceIds.push(v.deviceId);
             topics.push(v.topic)
-            mqttClient.subscribe(`${v.topic}`)
         })
+
+        topics.map((v) => {
+            datas.push({
+                topic: v,
+                data: await SensorData.findOne({ topics: v })
+            })
+        })
+
+        console.log('datas: ', datas)
 
         const payload = {
             userId: req.body.userId,

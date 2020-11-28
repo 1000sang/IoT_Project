@@ -1,5 +1,4 @@
 const { Device, User, UserDevice } = require('../models');
-const device = require('../models/device');
 const { createError } = require('../utils/error/error');
 
 const Errors = (exports.Errors = {
@@ -29,14 +28,6 @@ exports.findAllDeviceById = async (userId) => {
         where: { userId: userId },
         attributes: ['deviceId']
     })
-    // .then((rows) => {
-    //     let data = {}
-    //     return rows.map((r, v) => {
-    //         // console.log(data)
-    //         data[v] = r.deviceId;
-    //         return data
-    //     })
-    // })
 
     if (!result) {
         throw new Errors.DeviceIdNotFound()

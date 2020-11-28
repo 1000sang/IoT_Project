@@ -18,16 +18,11 @@ const mqttClient = mqtt.connect(mqttOptions);
 
 mqttClient.on('connect', () => {
     console.log('mqtt connected : ' + mqttClient.connected)
-    //device DB에 topic 전부 구독
 })
 
 mqttClient.on('error', (err) => {
     console.log(err)
 })
-// mqttClient.subscribe('DHT11');
-// mqttClient.on('message', function (topic, message) {
-//     console.log(`토픽:${topic.toString()},메세지: ${message.toString()}`)
-// })
 
 module.exports = async (server, app) => {
     const io = socketIo(server, { origin: '*:*' });
@@ -41,8 +36,6 @@ module.exports = async (server, app) => {
 
     findAllDeviceTopic.map((v) => {
         mqttClient.subscribe(`${v.topic}`);
-        // deviceRoom.join(`${v.topic}`);
-        console.log('aaa')
     })
 
     deviceRoom.on('connection', async (socket) => {
