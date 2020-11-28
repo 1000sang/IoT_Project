@@ -1,6 +1,5 @@
 const { Device, User, UserDevice } = require('../models');
 const { createError } = require('../utils/error/error');
-const SensorData = require('../models/mongo/sensorData');
 
 const Errors = (exports.Errors = {
     BadDeviceDataError: createError('BadDeviceDataError'),
@@ -9,21 +8,6 @@ const Errors = (exports.Errors = {
     DeviceIdNotFound: createError('DeviceIdNotFound'),
     UnknownError: createError('UnkownError')
 })
-
-exports.getSensorData = async (Devices) => {
-    try {
-        let datas = [];
-        let data;
-        console.log('type', typeof (Devices))
-        await Devices.map(async (v) => {
-            data = await SensorData.findOne({ topic: v.topic }).sort({ createAt: -1 })
-            datas.push(data)
-        })
-        return datas
-    } catch (err) {
-        console.log(err)
-    }
-}
 
 exports.findDeviceByUserId = async (userId) => {
     const result = await UserDevice.findAll({
