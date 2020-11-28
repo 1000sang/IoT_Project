@@ -8,7 +8,8 @@ exports.getSensorData = async (req, res, next) => {
     try {
         let datas = [];
         await req.body.Devices.map(async (v) => {
-            datas.push(await SensorData.findOne({ topic: v.topic }).sort({ createAt: -1 }))
+            let data = await SensorData.findOne({ topic: v.topic }).sort({ createAt: -1 })
+            datas.push(data)
         })
         console.log(datas)
     } catch (err) {
