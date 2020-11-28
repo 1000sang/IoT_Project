@@ -32,7 +32,6 @@ exports.createRoom = async (req, res, next) => {
 exports.createSocketRoom = async (req, res, next) => {
     try {
         const io = req.app.get('io');
-        const mqttClient = req.app.get('mqtt');
 
         let deviceIds = [];
         let topics = [];
@@ -43,19 +42,21 @@ exports.createSocketRoom = async (req, res, next) => {
         // console.log('socket', findOneUser);
         // console.log('sessionID', req.body.sessionID)
 
-        await findOneUser.Devices.map((v) => {
+        await findOneUser.Devices.map(async (v) => {
             deviceIds.push(v.deviceId);
             topics.push(v.topic)
+            let data = await SensorData.findOne({ topic: v })
+            datas.push(data.data)
         })
 
-        topics.map(async (v) => {
-            // let data = await SensorData.findOne({ topic: v })
-            console.log('data : ', data.data)
-            datas.push({
-                topic: v,
-                data: await SensorData.findOne({ topic: v }).data
-            })
-        })
+        // await topics.map((v) => {
+        //     // let data = await SensorData.findOne({ topic: v })
+        //     console.log('data : ', data.data)
+        //     datas.push({
+        //         topic: v,
+        //         data: SensorData.findOne({ topic: v }).data
+        //     })
+        // })
 
         console.log('datas: ', datas)
 
