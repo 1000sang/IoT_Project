@@ -1,8 +1,8 @@
 const Room = require('../models/mongo/room');
 const userService = require('../service/user');
 const SensorData = require('../models/mongo/sensorData');
-const redicClient = require('../utils/redis');
 const redisClient = require('../utils/redis');
+const asyncRedis = require('async-redis');
 
 exports.getSocket = async (req, res, next) => {
     console.log('getSocket API')
@@ -34,6 +34,7 @@ exports.createRoom = async (req, res, next) => {
 exports.createSocketRoom = async (req, res, next) => {
     try {
         const io = req.app.get('io');
+        const asyncRedisClient = asyncRedis.decorate(redisClient)
 
         let deviceIds = [];
         let topics = [];
@@ -53,8 +54,10 @@ exports.createSocketRoom = async (req, res, next) => {
         //deviceName 찾는 코드 추가해야함
 
         for (let i = 0; i < topics.length; i++) {
-            let data = redisClient.get(`${topics[i]}/cache`);
-            console.log(data)
+            let data = await asyncRedisClient.get(`${topics[i]}/cache`, (err, reply) => {
+                datas.push(reply)
+                console.log(reply)
+            });
             // let data = await SensorData.findOne({ topic: topics[i] }).sort({ createAt: -1 });
             // datas.push(data.data)
         }
@@ -66,6 +69,7 @@ exports.createSocketRoom = async (req, res, next) => {
             datas: datas,
             sessionID: req.body.sessionID
         }
+        console.log('a')
 
         io.of('/deviceRoom').emit('newRoom', payload);
 
