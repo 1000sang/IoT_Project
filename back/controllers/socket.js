@@ -53,8 +53,9 @@ exports.createSocketRoom = async (req, res, next) => {
         //deviceName 찾는 코드 추가해야함
 
         for (let i = 0; i < topics.length; i++) {
-            let data = await redisClient.get(`${topics[i]}/cache`);
-            datas.push(data)
+            let data = redisClient.get(`${topics[i]}/cache`, (err, reply) => {
+                datas.push(data)
+            });
             // let data = await SensorData.findOne({ topic: topics[i] }).sort({ createAt: -1 });
             // datas.push(data.data)
         }
