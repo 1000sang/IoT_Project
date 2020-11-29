@@ -54,7 +54,8 @@ exports.createSocketRoom = async (req, res, next) => {
 
         for (let i = 0; i < topics.length; i++) {
             let data = redisClient.get(`${topics[i]}/cache`, (err, reply) => {
-                datas.push(data)
+                datas.push(reply)
+                console.log(reply)
             });
             // let data = await SensorData.findOne({ topic: topics[i] }).sort({ createAt: -1 });
             // datas.push(data.data)
