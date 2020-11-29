@@ -50,8 +50,6 @@ module.exports = async (server, app) => {
         deviceRoom.emit(`${topic}`, message.toString());
         const data = JSON.parse(message);
 
-        redis.set(`${topic}/cache`, data.data);
-
         redisQueue.rpushRedisTopicQueue(data.topic);
         redisQueue.rpushRedisDataQueue(`${data.topic}`, `${data.data}`);
 
