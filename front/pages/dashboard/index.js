@@ -57,9 +57,12 @@ export default withAuthSync(() => {
       socketClient.on('disconnect', async () => {
         console.log('접속 해제');
       })
-
       const result = await axios.post(`/socket/room`, userData);
-      console.log('userDAta', userData)
+
+      dispatch(getTempData(result.data.datas[0]))
+      dispatch(getHumData(result.data.datas[1]))
+
+      console.log('userDAta', result)
     })
   }
   socketConnect(userData);
