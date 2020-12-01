@@ -4,7 +4,6 @@ const SensorData = require('../models/mongo/sensorData');
 
 exports.getSocket = async (req, res, next) => {
     console.log('getSocket API')
-    // console.log(req.session.passport);
     const socket = req.app.get('io')
     console.log(socket)
     return res.send('a')
