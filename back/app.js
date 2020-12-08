@@ -31,7 +31,7 @@ const sessionMiddleware = session({
     }),
     saveUninitialized: false,
     resave: false,
-    ttl: 10,
+    ttl: 3,
     secret: process.env.PASSPORT_SECRET,
     cookie: {
         sameSite: 'lax'
