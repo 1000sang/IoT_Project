@@ -27,11 +27,11 @@ const app = express();
 const sessionMiddleware = session({
     store: new RedisStore({
         client: redisClient,
+        ttl: 3,
         logErrors: true
     }),
     saveUninitialized: false,
     resave: false,
-    ttl: 3,
     secret: process.env.PASSPORT_SECRET,
     cookie: {
         sameSite: 'lax'
